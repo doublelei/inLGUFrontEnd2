@@ -53,8 +53,22 @@ class HomepageStore {
         tag_name: ''
     };
 
-    deletStatus() {
-
+    deletStatus(status_id) {
+        this.delete.status_id = status_id;
+        this.delete_status.account_id = GlobalStore.accounts.id
+        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/delete",
+            {
+                method: 'POST',
+                body: JSON.stringify(this.delete_status),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
+                })
+            })
+            .then(function (res) { })
+            .then(this.loadMoreTimelines())
+            .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
+        
     };
 
     timelinesPublic() {
@@ -102,7 +116,8 @@ class HomepageStore {
                 method: 'POST',
                 body: JSON.stringify(this.add_tag),
                 headers: new Headers({
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
                 })
             })
             .then(function (res) { toast.success("Add Tag Succeed") })
@@ -117,22 +132,25 @@ class HomepageStore {
                 method: 'POST',
                 body: JSON.stringify(this.new_status),
                 headers: new Headers({
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
                 })
             }).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Posted") })
             .catch(error => { console.error('Error:', error); toast.error("Posted failed") })
+        this.timelinesPublic();
     };
 
     likeStatus(status_id) {
         this.like.status_id = status_id;
+        this.like.account_id = GlobalStore.accounts.id
         fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/like",
             {
                 method: 'POST',
                 body: JSON.stringify(this.like),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
+                    'Authorization': 'Basic ' + GlobalStore.token + ":"
                 })
             })
             .then(function (res) { })
