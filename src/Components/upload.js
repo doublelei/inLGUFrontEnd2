@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import ReactDropZone from 'react-dropzone'
+import $ from 'jquery'
 export default class DropzoneComp extends React.Component {
     constructor(props) {
         super(props)
@@ -21,10 +22,12 @@ export default class DropzoneComp extends React.Component {
         this.setState({
             files,
         })
+        $("#upload").attr('src', URL.createObjectURL(files[0]))
     }
     render() {
         const imgs = this.state.files.map((file, index) => (
             <img
+                id="upload"
                 key={index}
                 className="img-thumbnail"
                 src={URL.createObjectURL(file)} />

@@ -34,10 +34,11 @@ function PostContent(props) {
 }
 
 function PostBottom(props) {
+  
   return (
     <div className="post-additional-info inline-items">
-      <a className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.likeStatus(props.status_id) }}>
-        <svg className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
+      <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.likeStatus(props.status_id); $("#heart-text").css("color", "#ff5e3a"); $("#heart-icon").css("fill", "#ff5e3a") }}>
+        <svg id="heart-icon" className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
         </use></svg>
         <span>{props.likes} Likes</span>
       </a>

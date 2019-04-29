@@ -113,7 +113,7 @@ class HomepageStore {
     }
 
     getHotTags() {
-        fetch(GlobalStore.basicURL + "/tags/")
+        fetch(GlobalStore.basicURL + "/tags/", {mode: "no-cors"})
           .then(function(res){this.hot_tag = res})
           .catch(function(error){toast.error("Get Hot Tags Failed"); console.log('Get Hot Tag Error:', error)})
     };

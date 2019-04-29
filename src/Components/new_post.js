@@ -8,17 +8,19 @@ import GlobalStore from '../store/store_global.js'
 function NewPostAuthorThumb(props) {
     return (
         <div className="author-thumb">
-            <img className="img-responsive" alt="author" src={props.avatar} style={{width:"36px", height:"36px"}}/>
+            <img className="img-responsive" alt="author" src={props.avatar} style={{ width: "36px", height: "36px" }} />
         </div>
     )
 }
 
 function NewPostInput(props) {
     return (
-        <div className="form-group with-icon label-floating is-empty">
-            <label className="control-label">Share what you are thinking here...</label>
-            <textarea className="form-control" placeholder="" id="status_content" ></textarea>
-            <span className="material-input"></span>
+        <div>
+            <div className="form-group with-icon label-floating is-empty">
+                <label className="control-label">Share what you are thinking here...</label>
+                <textarea className="form-control" placeholder="" id="status_content" ></textarea>
+            </div>
+            <img id="upload" className="img-responsive rounded float ml-10" alt="" src="" style={{marginLeft:"20px", width: "100px", height: "100px" }} />
         </div>
     )
 }
@@ -35,11 +37,11 @@ function NewPostButton(props) {
             <a className="options-message" href="#" data-original-title="ADD LOCATION" data-toggle="tooltip" data-placement="top">
                 <svg xmlns="http://www.w3.org/2000/svg" className="olymp-small-pin-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-small-pin-icon" /></svg>
             </a>
-            
-            <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus(){Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val())} }>Post</button>
-            <div className="checkbox clicked" style={{display: "inline", padding:"5px 10px 0 0", verticalAlign: "middle", float: "right"}}>
+
+            <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus() { Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val()); $('#status_content').val("") }}>Post</button>
+            <div className="checkbox clicked" style={{ display: "inline", padding: "5px 10px 0 0", verticalAlign: "middle", float: "right" }}>
                 <label>
-                    <input type="checkbox" name="optionsCheckboxes" id="status_anonymous"/>Anonymous
+                    <input type="checkbox" name="optionsCheckboxes" id="status_anonymous" />Anonymous
 				</label>
             </div>
         </div>
