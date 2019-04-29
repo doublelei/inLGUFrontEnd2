@@ -1,7 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-
+import GlobalStore from '../store/store_global'
 function Background(props) {
     return (
         <div class="content-bg-wrap">
@@ -87,7 +87,7 @@ function LoginContent(props) {
                                            
                                             <a href="#" className="btn btn-lg btn-primary full-width">Login</a>
                                             <div className="or" />
-                                            <a href="http://localhost:5000/login/microsoft" className="btn btn-lg bg-twitter full-width btn-icon-left"><i className="fa " aria-hidden="true" />Login with Outlook</a>
+                                            <a href={GlobalStore.basicURL + "/login/microsoft"} className="btn btn-lg bg-twitter full-width btn-icon-left"><i className="fa " aria-hidden="true" />Login with Outlook</a>
                                             <p>Don’t you have an account? <a href="#">Register Now!</a> it’s really simple and you can start enjoing all the benefits!</p>
                                         </div>
                                     </div>
