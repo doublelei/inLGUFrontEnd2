@@ -1,5 +1,6 @@
 import { observable, action, decorate } from 'mobx';
 import { toast } from 'react-toastify';
+import { Base64 } from 'js-base64';
 
 class globalStore {
     basicURL = "https://inlgu-api.rainbowsound.me/api/v1";
@@ -17,23 +18,35 @@ class globalStore {
         "url": "",
         "avatar": "/img/author-page.jpg ",
     };
-    getCurrentUser(id) {
-        fetch(this.basicURL + "/accounts/" + id)
-             .then(function(res){this.accounts = res.json; toast.success("Login Succeed")})
-             .catch(function(error){console.log('Error:', error); toast.error("Login Failed")})
+    getCurrentUser() {
+        fetch(this.basicURL + "/accounts/", {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
+            })
+        }).then(
+            resp => resp.json()
+        ).then(repos => {
+            this.accounts = repos.data;
+            toast.success("Login Succeed")
+        })
+            .catch(function (error) { console.log('Error:', error); toast.error("Login Failed") })
     };
-    updateCredential(){
+
+    updateCredential() {
         fetch(this.basicURL + "/accounts/update_credentials", {
             method: 'PATCH',
             body: JSON.stringify(this.accounts),
             headers: new Headers({
-              'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
             })
-          })
-          .then(function(res){toast.success("Updated Succeed")})
-          .catch(function(error){toast.error("Updated Failed"); console.log('Error:', error)})
+        })
+            .then(function (res) { toast.success("Updated Succeed") })
+            .catch(function (error) { toast.error("Updated Failed"); console.log('Error:', error) })
     }
-}   
+}
 
 
 decorate(globalStore, {

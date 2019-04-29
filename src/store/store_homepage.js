@@ -62,10 +62,6 @@ class HomepageStore {
             resp => resp.json()
         ).then(repos => {
             this.status_list = repos.data
-        
-            console.log(repos.data)
-            console.log(this.status_list)
-            // this.status_list = Object.keys(repos.data).map((keyname)=>repos.data[keyname])
         }).catch(ex => {
             console.error(ex);
         })
