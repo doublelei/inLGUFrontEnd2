@@ -35,6 +35,8 @@ const posts = observable([
 
 class _Homepage extends Component {
     componentDidMount() {
+        GlobalStore.token = this.props.match.params.id;
+        GlobalStore.getCurrentUser();
         this.props.HomepageStore.timelinesPublic();
         this.props.HomepageStore.getHotTags();
     }

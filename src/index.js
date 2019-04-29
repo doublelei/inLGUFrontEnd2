@@ -19,8 +19,8 @@ ReactDOM.render(
     <Provider {...Stores}>
         <Router >
             <Switch>
-                <Route exact path="/" component={Homepage} />
-                <Route path="/login/" component={Login} />
+                <Route exact path="/" component={Login} />
+                <Route path="/homepage/:id" component={Homepage} />
                 <Route path="/profile/:id" component={Profile} />
                 <Route path="/follow" component={Follow} />
                 <Route path="/follower" component={Follower} />
