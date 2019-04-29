@@ -2,7 +2,6 @@ import { observable, action, decorate } from 'mobx';
 import { toast } from 'react-toastify';
 import Stores from './stores.js';
 import GlobalStore from './store_global.js';
-import fetchJsonp from 'fetch-jsonp';
 import { extendObservable } from 'mobx';
 import { Base64 } from 'js-base64';
 

@@ -12,43 +12,6 @@ import { BrowserRouter as Router, Link, Route, Switch, Redirect} from 'react-rou
 import { toast } from 'react-toastify';
 import Stores from './store/stores.js'
 import { Provider } from 'mobx-react';
-// import './Bootstrap/dist/css/bootstrap-reboot.css'
-// import "./Bootstrap/dist/css/bootstrap.css"
-// import "./Bootstrap/dist/css/bootstrap-grid.css"
-// import "./css/theme-styles.css"
-// import "./css/blocks.css"
-// import "./css/fonts.css"
-// import "./css/jquery.mCustomScrollbar.min.css"
-// import "./css/simplecalendar.css"
-// import "./css/daterangepicker.css"
-// import "./css/magnific-popup.css"
-// import "./css/ReactToastify.min.css"
-
-// import "./js/jquery-3.2.0.min.js"
-// import "./js/material.min.js"
-// import "./js/theme-plugins.js"
-// import "./js/main.js"
-// import "./js/ajax-pagination.js"
-// import "./js/selectize.min.js"
-// import "./js/moment.min.js"
-// import "./js/daterangepicker.min.js"
-// import "./js/simplecalendar.js"
-// import "./js/jquery.magnific-popup.min.js"
-// import "./js/mediaelement-and-player.min.js"
-// import "./js/mediaelement-playlist-plugin.min.js"
-// require("./js/jquery-3.2.0.min.js")
-// require("./js/material.min.js")
-// require("./js/theme-plugins.js")
-// require("./js/main.js")
-// require("./js/ajax-pagination.js")
-// require("./js/selectize.min.js")
-// require("./js/moment.min.js")
-// require("./js/daterangepicker.min.js")
-// require("./js/simplecalendar.js")
-// require("./js/jquery.magnific-popup.min.js")
-// require("./js/mediaelement-and-player.min.js")
-// require("./js/mediaelement-playlist-plugin.min.js")
-//configure toast
 toast.configure()
 
 //ReactDOM.render(<Homepage />, document.getElementById('root'));
