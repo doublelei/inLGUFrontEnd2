@@ -18,7 +18,6 @@ import $ from 'jquery'
 function LoadMore(props) {
     return (
         <a id="load-more-button" className="btn btn-control btn-more" onClick={function LoadMoreTimelines() {
-            console.log("click");
             this.props.HomepageStore.last_time_stamp.timestamp = props.lastStatus.created_at;
             this.props.HomepageStore.LoadMoreTimelines();
         }}>
@@ -57,9 +56,7 @@ class _Homepage extends Component {
                         <main className="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
                             <NewPost {...this.props} />
                             <div id="newsfeed-items-grid">
-                                {/* {console.log(Object.keys(this.props.HomepageStore.status_list))} */}
                                 {this.props.HomepageStore.status_list.map((status, index) => <Post key={index} {...status} />)}
-                                {this.props.HomepageStore.status_list.map((status) => console.log(status))}
                             </div>
                             {/* <LoadMore lastStatus={this.props.HomepageStore.status_list[this.props.HomepageStore.status_list.length - 1]}/> */}
                         </main>

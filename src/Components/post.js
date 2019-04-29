@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import Stores from '../store/stores.js';
 import $ from 'jquery'
 import { toast } from 'react-toastify';
+import { observable, action, decorate } from 'mobx';
+
+var comments = observable([])
 
 function PostInfo(props) {
   return (
@@ -43,7 +46,7 @@ function PostBottom(props) {
         <span>{props.likes} Likes</span>
       </a>
       <div className="comments-shared">
-        <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments">
+        <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments(){comments = Stores.HomepageStore.getComment(props.status_id)}}>
           <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
           <span>{props.comments} Comments</span>
         </a>
@@ -61,7 +64,7 @@ function PostSideButton(props) {
       <a href="#" className="btn btn-control">
         <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
-      <a className="btn btn-control" onClick={ function deleteStatur(){Stores.HomepageStore.deletStatus(); toast.warn("Deleted")}}>
+      <a className="btn btn-control" onClick={ function deleteStatur(){Stores.HomepageStore.deletStatus(props.status_id); toast.warn("Deleted")}}>
         <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="FAV PAGE"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
       </a>
     </div>
@@ -138,7 +141,7 @@ function CommentWithoutChildren(props) {
 
 function Comment(props) {
   return (
-    <CommentWithoutChildren {...props}></CommentWithoutChildren>
+    <CommentWithoutChildren {...comments}></CommentWithoutChildren>
   )
 
   if (props.replies_count > 0) {
@@ -191,9 +194,9 @@ class Post extends Component {
           <PostInfo avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
           <PostContent content={this.props.content} img={this.props.img} />
           <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} />
-          <PostSideButton />
+          <PostSideButton status_id={this.props.id} />
           <br />
-          <Tag tags={this.props.tags} status_id={this.props.status_id} />
+          <Tag tags={this.props.tags} status_id={this.props.id} />
         </article>
         <div className="collapse" id="Comments">
           {/* <CommentList {...this.props} /> */}

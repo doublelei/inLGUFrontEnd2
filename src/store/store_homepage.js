@@ -53,6 +53,16 @@ class HomepageStore {
         tag_name: ''
     };
 
+    getComment(status_id) {
+        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/context").then(
+            resp => resp.json()
+        ).then(repos => {
+            return repos.descendants
+        }).catch(ex => {
+            console.error(ex);
+        })
+    }
+
     deletStatus(status_id) {
         this.delete.status_id = status_id;
         this.delete_status.account_id = GlobalStore.accounts.id
