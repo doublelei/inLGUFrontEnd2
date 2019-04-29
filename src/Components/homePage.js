@@ -16,7 +16,11 @@ import { observer, inject } from "mobx-react";
 
 function LoadMore(props) {
     return (
-        <a id="load-more-button" href="#" className="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid">
+        <a id="load-more-button" type="button" className="btn btn-control btn-more" onClick={function LoadMoreTimelines(){
+            console.log("click");
+            this.props.HomepageStore.last_time_stamp.timestamp = props.lastStatus.created_at;
+            this.props.HomepageStore.LoadMoreTimelines();
+        }}>
             <svg className="olymp-three-dots-icon">
                 <use xlinkHref="#olymp-three-dots-icon" />
             </svg>
@@ -31,7 +35,6 @@ const posts = observable([
 
 class _Homepage extends Component {
     componentWillMount(){
-        this.props.GlobalStore.getCurrentUser();
         this.props.HomepageStore.timelinesPublic();
         this.props.HomepageStore.getHotTags();
     }
@@ -55,7 +58,7 @@ class _Homepage extends Component {
                             <div id="newsfeed-items-grid">
                                 {this.props.HomepageStore.status_list.map((status, index) => <Post key={index} {...status}/>)}
                             </div>
-                            <LoadMore />
+                            <LoadMore lastStatus={this.props.HomepageStore.status_list[this.props.HomepageStore.status_list.length - 1]}/>
                         </main>
 
                         <aside className="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-xs-12">

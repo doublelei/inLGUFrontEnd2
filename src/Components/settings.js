@@ -90,7 +90,7 @@ function Setting(props) {
                         <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div className="form-group label-floating">
                                 <label className="control-label">User Name</label>
-                                <input className="form-control" type="text" placeholder defaultValue="YourName" id="user-name" />
+                                <input className="form-control" type="text" placeholder defaultValue={props.username} id="user-name" />
                                 <span className="material-input" /></div>
                             <div className="form-group label-floating">
                                 <label className="control-label">Your Email</label>
@@ -143,9 +143,9 @@ function Setting(props) {
                             <button className="btn btn-secondary btn-lg full-width">Restore all Attributes</button>
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <Link to="/">
-                                <button className="btn btn-primary btn-lg full-width" onClick={function onclik() {Stores.GlobalStore.change($("#user-name").val()); toast.success("Saved!")}}>Save all Changes</button>
-                            </Link>
+                            
+                            <button type="button" className="btn btn-primary btn-lg full-width" onClick={function onclik() {Stores.GlobalStore.accounts.username=$("#user-name").val(); Stores.GlobalStore.updateCredential()}}>Save all Changes</button>
+                            
                         </div>
                     </div>
                 </form>
@@ -161,7 +161,7 @@ class Profile extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-xl-9 order-xl-2 col-lg-9 order-lg-2 col-md-12 order-md-1 col-sm-12 col-xs-12">
-                        <Setting />
+                        <Setting username={this.props.accounts.username} />
                     </div>
                     <div className="col-xl-3 order-xl-1 col-lg-3 order-lg-1 col-md-12 order-md-2 col-sm-12 col-xs-12 responsive-display-none">
                         <SideMenu />

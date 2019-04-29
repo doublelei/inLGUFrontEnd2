@@ -4,6 +4,7 @@ import NavBar from './nav.js'
 import Settings from './settings.js'
 import { observer, inject } from "mobx-react";
 import { match, query } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 function SideMenu(props){
     return (
@@ -79,8 +80,8 @@ function SideMenu(props){
 
 class _Profile extends Component {
     componentWillMount(){
-        this.props.GlobalStore.getCurrentUser();
-        console.log(this.props.match);
+        console.log(this.props.match.params.id);
+        this.props.GlobalStore.getCurrentUser(this.props.match.params.id);
     }
     render() {
         return (
@@ -88,7 +89,7 @@ class _Profile extends Component {
                 <NavBar {...this.props.GlobalStore} />
                 <div className="header-spacer header-spacer-small" />
                 <SideMenu />
-                <Settings />
+                <Settings {...this.props.GlobalStore}/>
             </div>
         );
     }
