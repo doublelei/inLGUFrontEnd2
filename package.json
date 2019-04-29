@@ -12,8 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "jquery": "^3.4.0",
-    "mobx": "^5.9.4",
-    "mobx-react": "^5.4.3",
+    "js-base64": "^2.5.1",
+    "mobx": "^4.0.0",
+    "mobx-react": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

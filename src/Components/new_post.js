@@ -20,7 +20,7 @@ function NewPostInput(props) {
                 <label className="control-label">Share what you are thinking here...</label>
                 <textarea className="form-control" placeholder="" id="status_content" ></textarea>
             </div>
-            <img id="upload" className="img-responsive rounded float ml-10" alt="" src="" style={{marginLeft:"20px", width: "100px", height: "100px" }} />
+            <img id="upload" className="img-responsive rounded float ml-10" alt="" src="" style={{ marginLeft: "20px", width: "100px", height: "100px" }} />
         </div>
     )
 }
@@ -39,9 +39,9 @@ function NewPostButton(props) {
             </a>
 
             <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus() { Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val()); $('#status_content').val("") }}>Post</button>
-            <div className="checkbox clicked" style={{ display: "inline", padding: "5px 10px 0 0", verticalAlign: "middle", float: "right" }}>
+            <div className="checkbox" style={{ display: "inline", padding: "5px 10px 0 0", verticalAlign: "middle", float: "right" }}>
                 <label>
-                    <input type="checkbox" name="optionsCheckboxes" id="status_anonymous" />Anonymous
+                    <input type="checkbox" />Anonymous
 				</label>
             </div>
         </div>

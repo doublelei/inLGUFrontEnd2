@@ -13,10 +13,11 @@ import ActivityFeed from "./activityfeed.js"
 import { observable, autorun, action, decorate } from "mobx";
 import { observer, inject } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
+import $ from 'jquery'
 
 function LoadMore(props) {
     return (
-        <a id="load-more-button" type="button" className="btn btn-control btn-more" onClick={function LoadMoreTimelines(){
+        <a id="load-more-button" className="btn btn-control btn-more" onClick={function LoadMoreTimelines() {
             console.log("click");
             this.props.HomepageStore.last_time_stamp.timestamp = props.lastStatus.created_at;
             this.props.HomepageStore.LoadMoreTimelines();
@@ -34,7 +35,7 @@ const posts = observable([
 ])
 
 class _Homepage extends Component {
-    componentWillMount(){
+    componentDidMount() {
         this.props.HomepageStore.timelinesPublic();
         this.props.HomepageStore.getHotTags();
     }
@@ -56,9 +57,11 @@ class _Homepage extends Component {
                         <main className="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
                             <NewPost {...this.props} />
                             <div id="newsfeed-items-grid">
-                                {this.props.HomepageStore.status_list.map((status, index) => <Post key={index} {...status}/>)}
+                                {/* {console.log(Object.keys(this.props.HomepageStore.status_list))} */}
+                                {this.props.HomepageStore.status_list.map((status, index) => <Post key={index} {...status} />)}
+                                {this.props.HomepageStore.status_list.map((status) => console.log(status))}
                             </div>
-                            <LoadMore lastStatus={this.props.HomepageStore.status_list[this.props.HomepageStore.status_list.length - 1]}/>
+                            {/* <LoadMore lastStatus={this.props.HomepageStore.status_list[this.props.HomepageStore.status_list.length - 1]}/> */}
                         </main>
 
                         <aside className="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-xs-12">
@@ -72,7 +75,7 @@ class _Homepage extends Component {
                         </aside>
                     </div>
                 </div>
-                <Modals/>
+                <Modals />
             </div>
         );
     }

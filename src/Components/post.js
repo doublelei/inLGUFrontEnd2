@@ -71,8 +71,8 @@ function PostSideButton(props) {
 function Tag(props) {
   const tags = props.tags.map((tag, index) =>
     <a key={index}>
-      <span className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} >
-        <font color="#F8F8F8">{tag}</font>
+      <span className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} onClick={function click(){Stores.HomepageStore.showStatusUnderTag(tag.name)}}>
+        <font color="#F8F8F8">{tag.name}</font>
       </span>
     </a>);
   return (
@@ -137,6 +137,10 @@ function CommentWithoutChildren(props) {
 }
 
 function Comment(props) {
+  return (
+    <CommentWithoutChildren {...props}></CommentWithoutChildren>
+  )
+
   if (props.replies_count > 0) {
     return (
       <CommentWithChildren {...props}></CommentWithChildren>
@@ -182,16 +186,17 @@ class Post extends Component {
   render() {
     return (
       <div className="ui-block">
+      {console.log(this.props)}
         <article className="hentry post has-post-thumbnail">
           <PostInfo avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
           <PostContent content={this.props.content} img={this.props.img} />
-          <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.status_id} />
+          <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} />
           <PostSideButton />
           <br />
           <Tag tags={this.props.tags} status_id={this.props.status_id} />
         </article>
         <div className="collapse" id="Comments">
-          <CommentList {...this.props} />
+          {/* <CommentList {...this.props} /> */}
           <MoreComment />
           <CommentForm avatar={this.props.account.avatar} />
         </div>

@@ -26,7 +26,7 @@ class _MyPost extends Component {
 
     render() {
         return (
-            <body>
+            <div>
                 <NavBar {...GlobalStore} />
                 <div className="header-spacer"></div>
                 <div className="container">
@@ -41,7 +41,7 @@ class _MyPost extends Component {
                         {this.props.MyPostStore.status_list.map((status, index) => <div key={index} className="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12"><Post {...status} /></div>)}
                     </div>
                 </div>
-            </body>
+            </div>
         );
     }
 }
