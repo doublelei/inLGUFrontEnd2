@@ -1,7 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 import DropzoneComp from "./upload.js";
-import Stores from '../store/stores.js';
+import GlobalStore from '../store/store_global.js';
 import $ from 'jquery';
 import {Link} from 'react-router-dom'
 import { toast } from 'react-toastify';
@@ -143,9 +143,9 @@ function Setting(props) {
                             <button className="btn btn-secondary btn-lg full-width">Restore all Attributes</button>
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            
-                            <button type="button" className="btn btn-primary btn-lg full-width" onClick={function onclik() {Stores.GlobalStore.accounts.username=$("#user-name").val(); Stores.GlobalStore.updateCredential()}}>Save all Changes</button>
-                            
+                            <Link to="/">
+                            <button type="button" className="btn btn-primary btn-lg full-width" onClick={function onclik() {GlobalStore.accounts.username=$("#user-name").val(); GlobalStore.updateCredential()}}>Save all Changes</button>
+                            </Link>
                         </div>
                     </div>
                 </form>

@@ -153,7 +153,8 @@ class HomepageStore {
 
     likeStatus(status_id) {
         this.like.status_id = status_id;
-        this.like.account_id = GlobalStore.accounts.id
+        this.like.account_id = GlobalStore.accounts.id;
+        console.log(GlobalStore.token);
         fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/like",
             {
                 method: 'POST',
@@ -194,7 +195,7 @@ decorate(HomepageStore, {
     new_status: observable,
     show_status_under_tag: observable,
     add_tag: observable,
-
+    deletStatus: action,
     timelinesPublic: action,
     getHotTags: action,
     showStatusUnderTag: action,

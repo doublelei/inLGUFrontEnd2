@@ -50,6 +50,7 @@ class globalStore {
 
 
 decorate(globalStore, {
+    token: observable,
     notification: observable,
     accounts: observable,
     getCurrentUser: action
