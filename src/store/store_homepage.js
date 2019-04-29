@@ -52,7 +52,12 @@ class HomepageStore {
     weather_info = {};
 
     new_status = {
-        
+        content: '',
+        language: "zh-cn",
+        account_id: GlobalStore.accounts.id,
+        pinned: false,
+        anonymous: false,
+        reply_to_status_id: ''
     };
 
     like = {
@@ -77,18 +82,15 @@ class HomepageStore {
         tag_name: ''
     };
 
-    newComment(comment){
-        
-    };
-
     deletStatus(){
         
     };
 
     timelinesPublic() {
         fetch(GlobalStore.basicURL + "/timelines/public", {
+            mode: "no-cors",
             method: 'GET',
-            body: JSON.stringify(this.time_stamp),
+            timestamp: JSON.stringify(this.time_stamp),
             headers: new Headers({
               'Content-Type': 'application/json'
             })
@@ -99,6 +101,7 @@ class HomepageStore {
 
     loadMoreTimelines(){
         fetch(GlobalStore.basicURL + "/timelines/public", {
+            mode: "no-cors",
             method: 'GET',
             body: JSON.stringify(this.last_time_stamp),
             headers: new Headers({
@@ -142,7 +145,9 @@ class HomepageStore {
         .catch(function(error){toast.error("Add Tag Failed"); console.log('Add Tag Error:', error)})
     };
 
-    postStatus() {
+    postStatus(content, anonymous) {
+        this.new_status.content = content;
+        this.new_status.anonymous = anonymous;
         fetch(GlobalStore.basicURL + "/statuses",
         {
             method: 'POST',

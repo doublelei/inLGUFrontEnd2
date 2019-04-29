@@ -36,7 +36,7 @@ function NewPostButton(props) {
                 <svg xmlns="http://www.w3.org/2000/svg" className="olymp-small-pin-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-small-pin-icon" /></svg>
             </a>
             
-            <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus(){Stores.HomepageStore.new_status.content=$('#status_content').val(); Stores.HomepageStore.new_status.anonymous=$('#status_anonymous').val(); Stores.HomepageStore.postStatus();toast.success("Posted!")} }>Post</button>
+            <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus(){Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val())} }>Post</button>
             <div className="checkbox clicked" style={{display: "inline", padding:"5px 10px 0 0", verticalAlign: "middle", float: "right"}}>
                 <label>
                     <input type="checkbox" name="optionsCheckboxes" id="status_anonymous"/>Anonymous
