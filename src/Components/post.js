@@ -36,7 +36,7 @@ function PostContent(props) {
 function PostBottom(props) {
   return (
     <div className="post-additional-info inline-items">
-      <a className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.likeStatus(); toast.success("liked!") }}>
+      <a className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.likeStatus(props.status_id) }}>
         <svg className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
         </use></svg>
         <span>{props.likes} Likes</span>
@@ -77,7 +77,7 @@ function Tag(props) {
   return (
     <div style={{ margin: "2px 2px 2px 2px" }}>
       {tags}
-      <button type="button" className="btn badge-pill badge-success" data-toggle="modal" data-target="#add-tag" style={{ marginBottom: "0", padding: ".15rem .4rem" }} >+</button>
+      <button type="button" className="btn badge-pill badge-success" data-toggle="modal" data-target="#add-tag" style={{ marginBottom: "0", padding: ".15rem .4rem" }} onClick={function setStatusID(){Stores.HomepageStore.add_tag.status_id = props.status_id}}>+</button>
     </div>)
 }
 

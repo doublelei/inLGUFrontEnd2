@@ -5,6 +5,7 @@ import Settings from './settings.js'
 import { observer, inject } from "mobx-react";
 import { match, query } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import GlobalStore from '../store/store_global.js'
 
 function SideMenu(props){
     return (
@@ -81,20 +82,20 @@ function SideMenu(props){
 class _Profile extends Component {
     componentWillMount(){
         console.log(this.props.match.params.id);
-        this.props.GlobalStore.getCurrentUser(this.props.match.params.id);
+        GlobalStore.getCurrentUser(this.props.match.params.id);
     }
     render() {
         return (
             <div>
-                <NavBar {...this.props.GlobalStore} />
+                <NavBar {...GlobalStore} />
                 <div className="header-spacer header-spacer-small" />
                 <SideMenu />
-                <Settings {...this.props.GlobalStore}/>
+                <Settings {...GlobalStore}/>
             </div>
         );
     }
 }
 
-const Profile = inject('GlobalStore')(observer(_Profile))
+const Profile = observer(_Profile)
 
 export default Profile

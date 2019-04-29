@@ -6,6 +6,7 @@ import Modals from './modal.js';
 import { observable, autorun, action, decorate } from "mobx";
 import { inject } from 'mobx-react';
 import { observer } from "mobx-react";
+import GlobalStore from '../store/store_global.js'
 
 function Searchfriend(props) {
     return (
@@ -72,25 +73,25 @@ function Friends(props) {
 class _Follow extends Component {
 
     componentWillMount() {
-        this.props.GlobalStore.getCurrentUser();
+        GlobalStore.getCurrentUser();
         // this.props.FollowStore.getfollowing();
     }
     render() {
         return (
             <div>
-                <NavBar {...this.props.GlobalStore} />
+                <NavBar {...GlobalStore} />
                 <div className="header-spacer"></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Head {...this.props.GlobalStore.accounts} />
+                            <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
                 </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Searchfriend name={this.props.GlobalStore.accounts.username} page="Followers" num={this.props.GlobalStore.accounts.followers_count} />
+                            <Searchfriend name={GlobalStore.accounts.username} page="Followers" num={GlobalStore.accounts.followers_count} />
                         </div>
                     </div>
                 </div>
@@ -107,25 +108,25 @@ class _Follow extends Component {
 
 class _Follower extends Component {
     componentWillMount() {
-        this.props.GlobalStore.getCurrentUser();
+        GlobalStore.getCurrentUser();
         // this.props.FollowerStore.getfollowing();
     }
     render() {
         return (
             <div>
-                <NavBar {...this.props.GlobalStore} />
+                <NavBar {...GlobalStore} />
                 <div className="header-spacer"></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Head {...this.props.GlobalStore.accounts} />
+                            <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
                 </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Searchfriend name={this.props.GlobalStore.accounts.username} page="Follows" num={this.props.GlobalStore.accounts.following_count} />
+                            <Searchfriend name={GlobalStore.accounts.username} page="Follows" num={GlobalStore.accounts.following_count} />
                         </div>
                     </div>
                 </div>
@@ -140,7 +141,7 @@ class _Follower extends Component {
     }
 }
 
-const Follow = inject('FollowStore', 'GlobalStore')(observer(_Follow))
-const Follower = inject('FollowerStore', 'GlobalStore')(observer(_Follower))
+const Follow = inject('FollowStore')(observer(_Follow))
+const Follower = inject('FollowerStore')(observer(_Follower))
 
 export { Follow, Follower };

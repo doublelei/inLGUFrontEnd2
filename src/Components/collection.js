@@ -6,6 +6,7 @@ import Head from './head.js';
 import { observable, autorun, action, decorate } from "mobx";
 import { inject } from 'mobx-react';
 import { observer } from "mobx-react";
+import GlobalStore from '../store/store_global.js'
 
 function LoadMore(props) {
     return (
@@ -19,19 +20,19 @@ function LoadMore(props) {
 
 class _MyPost extends Component {
     componentWillMount() {
-        this.props.GlobalStore.getCurrentUser();
+        GlobalStore.getCurrentUser();
         // this.props.MyPostStore.getmypost();
     }
 
     render() {
         return (
             <body>
-                <NavBar {...this.props.GlobalStore} />
+                <NavBar {...GlobalStore} />
                 <div className="header-spacer"></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Head {...this.props.GlobalStore.accounts} />
+                            <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
                 </div>
@@ -47,18 +48,18 @@ class _MyPost extends Component {
 
 class _Collections extends Component {
     componentWillMount() {
-        this.props.GlobalStore.getCurrentUser();
+        GlobalStore.getCurrentUser();
         // this.props.CollectionStore.getcollection();
     }
     render() {
         return (
             <div>
-                <NavBar {...this.props.GlobalStore} />
+                <NavBar {...GlobalStore} />
                 <div className="header-spacer"></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Head {...this.props.GlobalStore.accounts} />
+                            <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
                 </div>
@@ -72,7 +73,7 @@ class _Collections extends Component {
     }
 }
 
-const MyPost = inject('MyPostStore', 'GlobalStore')(observer(_MyPost))
-const Collections = inject('CollectionStore', 'GlobalStore')(observer(_Collections))
+const MyPost = inject('MyPostStore')(observer(_MyPost))
+const Collections = inject('CollectionStore')(observer(_Collections))
 
 export { MyPost, Collections };

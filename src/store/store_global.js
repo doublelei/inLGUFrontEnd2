@@ -1,8 +1,8 @@
 import { observable, action, decorate } from 'mobx';
 import { toast } from 'react-toastify';
 
-class GlobalStore {
-    basicURL = "http://127.0.0.1:5000/api/v1";
+class globalStore {
+    basicURL = "https://inlgu.rainbowsound.me/api/v1";
     notification = [{ "username": "Min Tian", "avatar": "/../../public/img/author-page.jpg ", "time": "4 hours ago", "action": "commented" }, { "username": "Min Tian", "avatar": "/../../public/img/author-page.jpg ", "time": "4 hours ago", "action": "commented" }];
     accounts = {
         "id": "177ceaca-7a91-40fa-a01c-6d09f98c7890",
@@ -35,10 +35,12 @@ class GlobalStore {
 }   
 
 
-decorate(GlobalStore, {
+decorate(globalStore, {
     notification: observable,
     accounts: observable,
     getCurrentUser: action
 })
+
+const GlobalStore = new globalStore()
 
 export default GlobalStore;

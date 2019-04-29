@@ -37,7 +37,7 @@ function AddTag(props) {
                             <input type="text" id="modal-input" placeholder="#Tag" style={{paddingLeft:"5%", height:"60%"}}/>
                         </div>
                         <div className="col-md-4" >
-                            <button type="button" className="btn btn-success" style={{paddingLeft:"5%", height:"60%"}} onClick={function addtag(){Stores.HomepageStore.tagStatus($('#modal-input').val()); toast.success("Tag Added")}}>Submit</button>
+                            <button type="button" className="btn btn-success" style={{paddingLeft:"5%", height:"60%"}} onClick={function addtag(){Stores.HomepageStore.tagStatus($('#modal-input').val())}}>Submit</button>
                         </div>
                     </div>
                 </div>

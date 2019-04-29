@@ -1,7 +1,7 @@
 import { observable, action, decorate } from 'mobx';
-import GlobalStore from './store_global.js'
 import { toast } from 'react-toastify';
 import Stores from './stores.js';
+import GlobalStore from './store_global.js';
 
 class HomepageStore {
     time_stamp={
@@ -57,11 +57,17 @@ class HomepageStore {
 
     like = {
         status_id: '',
-        account_id: Stores.GlobalStore.accounts.id
+        account_id: ''
     };
 
     undo_like ={
-        
+        status_id: '',
+        account_id: ''
+    };
+
+    delete_status ={
+        status_id: '',
+        account_id: ''
     };
 
     show_status_under_tag = '';
@@ -76,11 +82,11 @@ class HomepageStore {
     };
 
     deletStatus(){
-        this.status_list.shift()
+        
     };
 
     timelinesPublic() {
-        fetch(Stores.GlobalStore.basicURL + "/timelines/public", {
+        fetch(GlobalStore.basicURL + "/timelines/public", {
             method: 'GET',
             body: JSON.stringify(this.time_stamp),
             headers: new Headers({
@@ -92,7 +98,7 @@ class HomepageStore {
     };
 
     loadMoreTimelines(){
-        fetch(Stores.GlobalStore.basicURL + "/timelines/public", {
+        fetch(GlobalStore.basicURL + "/timelines/public", {
             method: 'GET',
             body: JSON.stringify(this.last_time_stamp),
             headers: new Headers({
@@ -104,14 +110,14 @@ class HomepageStore {
     }
 
     getHotTags() {
-        fetch(Stores.GlobalStore.basicURL + "/tags/")
+        fetch(GlobalStore.basicURL + "/tags/")
           .then(function(res){this.hot_tag = res})
           .catch(function(error){toast.error("Get Hot Tags Failed"); console.log('Get Hot Tag Error:', error)})
     };
 
 
     showStatusUnderTag() {
-        fetch(Stores.GlobalStore.basicURL + "/timelines/tag/" + this.show_status_under_tag)
+        fetch(GlobalStore.basicURL + "/timelines/tag/" + this.show_status_under_tag)
         .then(res => res.json())
         .then(response => {
             this.status_list = response
@@ -121,23 +127,23 @@ class HomepageStore {
         })
     };
 
-    tagStatus(tagname) {
-        this.status_list[0].tags = ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "a sample tag"]
-        fetch(Stores.GlobalStore.basicURL + "/statuses/" + this.add_tag + "/tag/new",
+    // tag_id will be set when the + button is clicked
+    tagStatus(tag_name) {
+        this.add_tag.tag_name = tag_name;
+        fetch(GlobalStore.basicURL + "/statuses/" + this.add_tag.status_id + "/tag/new",
         {
             method: 'POST',
             body: JSON.stringify(this.add_tag),
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
-        }).then(res => res.json())
-        .then(response => {console.log('Success:', response); toast.success("Add tag succeed")})
-        .catch(error => {console.error('Error:', error); toast.error("Add tag failed")})
+        })
+        .then(function(res){toast.success("Add Tag Succeed")})
+        .catch(function(error){toast.error("Add Tag Failed"); console.log('Add Tag Error:', error)})
     };
 
     postStatus() {
-        this.status_list.push(this.new_status)
-        fetch(Stores.GlobalStore.basicURL + "/statuses",
+        fetch(GlobalStore.basicURL + "/statuses",
         {
             method: 'POST',
             body: JSON.stringify(this.new_status),
@@ -150,7 +156,8 @@ class HomepageStore {
     };
 
     likeStatus(status_id) {
-        fetch(Stores.GlobalStore.basicURL + "/statuses/" + status_id + "/like",
+        this.like.status_id = status_id;
+        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/like",
         {
             method: 'POST',
             body: JSON.stringify(this.like),

@@ -12,7 +12,7 @@ import Hottags from "./hottag.js"
 import ActivityFeed from "./activityfeed.js"
 import { observable, autorun, action, decorate } from "mobx";
 import { observer, inject } from "mobx-react";
-
+import GlobalStore from '../store/store_global.js'
 
 function LoadMore(props) {
     return (
@@ -41,16 +41,16 @@ class _Homepage extends Component {
     render() {
         return (
             <div>
-                <NavBar {...this.props.GlobalStore} />
+                <NavBar {...GlobalStore} />
                 <div className="header-spacer"></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Head {...this.props.GlobalStore.accounts} />
+                            <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
                 </div>
-                <div> {this.props.GlobalStore.test} </div>
+                <div> {GlobalStore.test} </div>
                 <div className="container">
                     <div className="row">
                         <main className="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
@@ -72,12 +72,12 @@ class _Homepage extends Component {
                         </aside>
                     </div>
                 </div>
-                <Modals />
+                <Modals/>
             </div>
         );
     }
 }
 
-const Homepage = inject('HomepageStore', 'GlobalStore')(observer(_Homepage))
+const Homepage = inject('HomepageStore')(observer(_Homepage))
 
 export default Homepage;

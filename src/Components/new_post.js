@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import $ from 'jquery'
 import Stores from '../store/stores.js';
 import { toast } from 'react-toastify';
+import GlobalStore from '../store/store_global.js'
 
 function NewPostAuthorThumb(props) {
     return (
@@ -53,7 +54,7 @@ class NewPost extends Component {
                 <div className="news-feed-form">
                     <div className="" aira-expanded="true">
                         <form>
-                            <NewPostAuthorThumb {...this.props.GlobalStore.accounts} />
+                            <NewPostAuthorThumb {...GlobalStore.accounts} />
                             <NewPostInput {...this.props.HomepageStore} />
                             <NewPostButton {...this.props.HomepageStore} />
                         </form>
