@@ -112,7 +112,6 @@ class HomepageStore {
 
 
     showStatusUnderTag(tag) {
-        console.log(tag)
         fetch(GlobalStore.basicURL + "/timelines/tag/" + tag)
             .then(function (res) { this.status_list = res })
             .catch(function (error) { toast.error("Get Status by Tags Failed"); console.log('Get Status by Tag Error:', error) })
@@ -131,6 +130,7 @@ class HomepageStore {
                 })
             })
             .then(function (res) { toast.success("Add Tag Succeed") })
+            .then(this.timelinesPublic())
             .catch(function (error) { toast.error("Add Tag Failed"); console.log('Add Tag Error:', error) })
     };
 
@@ -165,6 +165,7 @@ class HomepageStore {
                 })
             })
             .then(function (res) { })
+            .then(this.timelinesPublic())
             .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
     };
 
