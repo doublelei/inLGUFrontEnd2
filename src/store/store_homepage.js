@@ -78,7 +78,7 @@ class HomepageStore {
             .then(function (res) { })
             .then(this.loadMoreTimelines())
             .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
-        
+
     };
 
     timelinesPublic() {
@@ -131,6 +131,7 @@ class HomepageStore {
             })
             .then(function (res) { toast.success("Add Tag Succeed"); this.timelinesPublic() })
             .catch(function (error) { toast.error("Add Tag Failed"); console.log('Add Tag Error:', error) })
+        window.location.reload()
     };
 
     postStatus(content, anonymous) {
@@ -149,6 +150,7 @@ class HomepageStore {
             .then(response => { console.log('Success:', response); toast.success("Posted") })
             .catch(error => { console.error('Error:', error); toast.error("Posted failed") })
         this.timelinesPublic();
+        window.location.reload()
     };
 
     likeStatus(status_id) {
@@ -167,6 +169,7 @@ class HomepageStore {
             .then(function (res) { })
             .then(this.timelinesPublic())
             .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
+        window.location.reload()
     };
 
     undoLikeStatus() {
