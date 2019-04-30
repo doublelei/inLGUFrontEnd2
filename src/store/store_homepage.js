@@ -72,7 +72,7 @@ class HomepageStore {
                 body: JSON.stringify(this.delete_status),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.token + ":" + "unused")
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             })
             .then(function (res) { })
@@ -127,7 +127,7 @@ class HomepageStore {
                 body: JSON.stringify(this.add_tag),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.token + ":" + "unused")
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             })
             .then(function (res) { toast.success("Add Tag Succeed") })
@@ -143,7 +143,7 @@ class HomepageStore {
                 body: JSON.stringify(this.new_status),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.token + ":" + "unused")
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             }).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Posted") })
@@ -154,14 +154,14 @@ class HomepageStore {
     likeStatus(status_id) {
         this.like.status_id = status_id;
         this.like.account_id = GlobalStore.accounts.id;
-        console.log(GlobalStore.token);
+        console.log(GlobalStore.accounts.id);
         fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/like",
             {
                 method: 'POST',
                 body: JSON.stringify(this.like),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.token + ":" + "unused")
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             })
             .then(function (res) { })
