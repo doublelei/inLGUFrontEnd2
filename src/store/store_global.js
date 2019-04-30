@@ -19,11 +19,11 @@ class globalStore {
         "avatar": "/img/author-page.jpg ",
     };
     getCurrentUser() {
-        fetch(this.basicURL + "/accounts/", {
+        fetch(this.basicURL + "/accounts", {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + window.btoa(GlobalStore.token + ":" + "unused")
+                'Authorization': 'Basic ' + window.btoa(this.accounts.id + ":" + "unused")
             })
         }).then(
             resp => resp.json()
@@ -40,7 +40,7 @@ class globalStore {
             body: JSON.stringify(this.accounts),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + window.btoa(this.token + ":" + "unused")
+                'Authorization': 'Basic ' + window.btoa(this.accounts.id + ":" + "unused")
             })
         })
             .then(function (res) { toast.success("Updated Succeed") })
