@@ -23,7 +23,7 @@ class globalStore {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
+                'Authorization': 'Basic ' + window.btoa(GlobalStore.token + ":" + "unused")
             })
         }).then(
             resp => resp.json()
@@ -40,7 +40,7 @@ class globalStore {
             body: JSON.stringify(this.accounts),
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + Base64.encode(GlobalStore.token + ":")
+                'Authorization': 'Basic ' + window.btoa(GlobalStore.token + ":" + "unused")
             })
         })
             .then(function (res) { toast.success("Updated Succeed") })

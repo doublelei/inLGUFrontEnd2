@@ -143,7 +143,7 @@ function Setting(props) {
                             <button className="btn btn-secondary btn-lg full-width">Restore all Attributes</button>
                         </div>
                         <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <Link to="/">
+                            <Link to="/homepage">
                             <button type="button" className="btn btn-primary btn-lg full-width" onClick={function onclik() {GlobalStore.accounts.username=$("#user-name").val(); GlobalStore.updateCredential()}}>Save all Changes</button>
                             </Link>
                         </div>
