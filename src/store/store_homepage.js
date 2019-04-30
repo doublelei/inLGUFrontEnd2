@@ -129,8 +129,7 @@ class HomepageStore {
                     'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             })
-            .then(function (res) { toast.success("Add Tag Succeed") })
-            .then(this.timelinesPublic())
+            .then(function (res) { toast.success("Add Tag Succeed"); this.timelinesPublic() })
             .catch(function (error) { toast.error("Add Tag Failed"); console.log('Add Tag Error:', error) })
     };
 
