@@ -137,7 +137,7 @@ class HomepageStore {
     postStatus(content, anonymous) {
         this.new_status.content = content;
         this.new_status.anonymous = anonymous;
-        this.new_status = GlobalStore.accounts.id;
+        this.new_status.account_id = GlobalStore.accounts.id;
         fetch(GlobalStore.basicURL + "/statuses",
             {
                 method: 'POST',
