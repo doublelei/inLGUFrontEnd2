@@ -46,6 +46,7 @@ function PostInfo(props) {
 }
 
 function PostContent(props) {
+
   if (props.img == null) {
     return (
       <div>
@@ -66,7 +67,6 @@ function PostContent(props) {
       </div>
     )
   }
-
 }
 
 function PostBottom(props) {
@@ -115,7 +115,7 @@ function PostSideButton(props) {
       <a href="#" className="btn btn-control">
         <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
-      <a className="btn btn-control" onClick={function deleteStatur() { Stores.HomepageStore.deletStatus(props.status_id)}}>
+      <a className="btn btn-control" onClick={function deleteStatur() { Stores.HomepageStore.deletStatus(props.status_id) }}>
         <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="Delete"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
       </a>
     </div>
@@ -137,7 +137,7 @@ function Tag(props) {
 }
 
 function CommentWithChildren(props) {
-  const children = props.chidren.map((child, index) => <Comment key={index} {...child}></Comment>)
+  const children = props.replies.map((child, index) => <Comment key={index} {...child}></Comment>)
   return (
     <li className="has-children">
       <div className="post__author author vcard inline-items">
@@ -237,27 +237,32 @@ function CommentForm(props) {
 }
 
 class _Post extends Component {
-  
-  render() {
-    return (
-      <div className="ui-block">
-        {console.log(this.props.liked)}
-        <article className="hentry post has-post-thumbnail">
-          <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
-          <PostContent content={this.props.content} img={this.props.img} />
-          <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
-          <PostSideButton status_id={this.props.id} />
-          <br />
-          <Tag tags={this.props.tags} status_id={this.props.id} />
-        </article>
-        <div className="collapse" id={this.props.id}>
-          <CommentList {...this.props} />
-          <MoreComment />
-          <CommentForm avatar={this.props.account.avatar} />
-        </div>
 
-      </div>
-    );
+  render() {
+    if (this.props.content == 'This content is muted.') {
+      return (
+        <div> </div>
+      )
+    } else {
+      return (
+        <div className="ui-block">
+          {console.log(this.props.liked)}
+          <article className="hentry post has-post-thumbnail">
+            <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
+            <PostContent content={this.props.content} img={this.props.img} />
+            <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
+            <PostSideButton status_id={this.props.id} />
+            <br />
+            <Tag tags={this.props.tags} status_id={this.props.id} />
+          </article>
+          <div className="collapse" id={this.props.id}>
+            <CommentList {...this.props} />
+            <MoreComment />
+            <CommentForm avatar={this.props.account.avatar} />
+          </div>
+        </div>
+      );
+    }
   }
 }
 

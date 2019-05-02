@@ -4,7 +4,7 @@ import $ from 'jquery'
 import Stores from '../store/stores.js';
 import { toast } from 'react-toastify';
 import GlobalStore from '../store/store_global.js'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function NewPostAuthorThumb(props) {
     return (
@@ -32,14 +32,15 @@ function NewPostButton(props) {
             <a className="options-message" href="#" data-original-title="ADD PHOTOS" data-toggle="tooltip" data-placement="top">
                 <svg xmlns="http://www.w3.org/2000/svg" className="olymp-camera-icon" data-toggle="modal" data-target="#update-header-photo"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-camera-icon" /></svg>
             </a>
-            <a className="options-message" href="#" data-original-title="TAG YOUR FRIENDS" data-toggle="tooltip" data-placement="top">
-                <svg xmlns="http://www.w3.org/2000/svg" className="olymp-computer-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-computer-icon" /></svg>
+            <a className="options-message" href="#" data-original-title="CREATE YOUR POLL" data-toggle="tooltip" data-placement="top">
+                {/* <svg xmlns="http://www.w3.org/2000/svg" className="olymp-computer-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-computer-icon" /></svg> */}
+                <img className="olymp-computer-icon" data-toggle="modal" data-target="#poll" src='/img/poll.png'></img>
             </a>
             <a className="options-message" href="#" data-original-title="ADD LOCATION" data-toggle="tooltip" data-placement="top">
                 <svg xmlns="http://www.w3.org/2000/svg" className="olymp-small-pin-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-small-pin-icon" /></svg>
             </a>
             <Link to={"/homepage/" + GlobalStore.accounts.id}>
-            <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus() { Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val()); $('#status_content').val("") }}>Post</button>
+                <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus() { Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val()); $('#status_content').val("") }}>Post</button>
             </Link>
             <div className="checkbox" style={{ display: "inline", padding: "5px 10px 0 0", verticalAlign: "middle", float: "right" }}>
                 <label>
