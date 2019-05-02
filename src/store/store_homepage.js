@@ -53,6 +53,11 @@ class HomepageStore {
         tag_name: ''
     };
 
+    collect_status = {
+        status_id: '',
+        account_id:''
+    }
+
     getComment(status_id) {
         fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/context").then(
             resp => resp.json()
@@ -63,8 +68,25 @@ class HomepageStore {
         })
     }
 
+    collectStatus(status_id) {
+        this.collect_status.status_id = status_id;
+        this.collect_status.account_id = GlobalStore.accounts.id
+        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/collect",
+            {
+                method: 'POST',
+                body: JSON.stringify(this.collect_status),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
+            })
+            .then(function (res) { toast.success("Status Collected") })
+            .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
+
+    };
+
     deletStatus(status_id) {
-        this.delete.status_id = status_id;
+        this.delete_status.status_id = status_id;
         this.delete_status.account_id = GlobalStore.accounts.id
         fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/delete",
             {
@@ -201,6 +223,9 @@ decorate(HomepageStore, {
     new_status: observable,
     show_status_under_tag: observable,
     add_tag: observable,
+
+    getComment: action,
+    collectStatus: action,
     deletStatus: action,
     timelinesPublic: action,
     getHotTags: action,

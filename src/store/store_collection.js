@@ -1,6 +1,7 @@
 import { observable, action, decorate } from 'mobx';
+import GlobalStore from './store_global.js'
+import { toast } from 'react-toastify';
 
-// const globalstore = new GlobalStore()
 class CollectionStore {
     status_list = [
         {
@@ -14,25 +15,24 @@ class CollectionStore {
                 }]
             }]
         }];
-    getcollection() {
-        // fetch(globalstore.basicURL + "/collections", {
-        //     headers: {
-        //         'id': globalstore.accounts.id,
-        //     }
-        // })
-        //     .then(res => res.json())
-        //     .then(response => {
-        //         this.accounts = response
-        //     })
-        //     .catch(error => {
-        //         console.log("error.response.data.message")
-        //     })
+    getCollection() {
+        fetch(GlobalStore.basicURL + "/collections",
+        {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+            })
+        })
+        .then(resp => resp.json())
+        .then(repos => {this.status_list = repos.data})
+        .catch(ex => {console.error(ex); toast.error("Get Collections Failed")})
     }
-
 };
 
 decorate(CollectionStore, {
     status_list: observable,
+    getCollection: action
 })
 
 export default CollectionStore;

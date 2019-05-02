@@ -75,14 +75,14 @@ class PostBottom extends Component {
 function PostSideButton(props) {
   return (
     <div className="control-block-button post-control-button">
-      <a href="#" className="btn btn-control">
-        <svg className="olymp-star-icon" data-toggle="tooltip" data-placement="right" data-original-title="FAV PAGE"><use xlinkHref="/icons/icons.svg#olymp-star-icon"></use></svg>
+      <a className="btn btn-control" onClick={function collectStatus(){Stores.HomepageStore.collectStatus(props.status_id)}}>
+        <svg className="olymp-star-icon" data-toggle="tooltip" data-placement="right" data-original-title="Collect Status"><use xlinkHref="/icons/icons.svg#olymp-star-icon"></use></svg>
       </a>
       <a href="#" className="btn btn-control">
         <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
       <a className="btn btn-control" onClick={ function deleteStatur(){Stores.HomepageStore.deletStatus(props.status_id); toast.warn("Deleted")}}>
-        <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="FAV PAGE"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
+        <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="Delete"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
       </a>
     </div>
   )

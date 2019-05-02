@@ -1,6 +1,6 @@
 import { observable, action, decorate } from 'mobx';
-
-// const globalstore = new GlobalStore()
+import GlobalStore from './store_global.js'
+import { toast } from 'react-toastify';
 class MyPostStore {
     status_list = [
         {
@@ -14,20 +14,24 @@ class MyPostStore {
                 }]
             }]
         }];
-    getmypost() {
-        // fetch(globalstore.basicURL + "/accounts/" + globalstore.accounts.id + "/statuses")
-        //     .then(res => res.json())
-        //     .then(response => {
-        //         this.accounts = response
-        //     })
-        //     .catch(error => {
-        //         console.log("error.response.data.message")
-        //     })
+    getMyPost() {
+        fetch(GlobalStore.basicURL + "/accounts/" + GlobalStore.accounts.id + "/statuses",
+        {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+            })
+        })
+        .then(resp => resp.json())
+        .then(repos => {this.tatus_list = repos.data})
+        .catch(ex => {console.error(ex); toast.error("Get My Posts Failed")})
     }
 };
 
 decorate(MyPostStore, {
-    status_list: observable
+    status_list: observable,
+    getMyPost: action
 })
 
 export default MyPostStore;
