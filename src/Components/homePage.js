@@ -57,7 +57,6 @@ class _Homepage extends Component {
                             <div id="newsfeed-items-grid">
                                 {this.props.HomepageStore.status_list.map((status, index) => <Post key={index} {...status} />)}
                             </div>
-
                             {/* <LoadMore lastStatus={this.props.HomepageStore.status_list[this.props.HomepageStore.status_list.length - 1]}/> */}
                         </main>
 

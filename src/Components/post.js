@@ -79,7 +79,7 @@ function PostBottom(props) {
           <span>{props.likes} Liked</span>
         </a>
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -96,7 +96,7 @@ function PostBottom(props) {
         </a>
 
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -230,7 +230,7 @@ function CommentForm(props) {
           <textarea id="new-comment" className="form-control" placeholder=" " />
           <span className="material-input" /></div>
       </div>
-      <a className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#new-comment').val(), false)}}>Comment</a>
+      <button className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#new-comment').val(), false); $('#new-comment').val("")}}>Comment</button>
 
     </form>
   )
@@ -250,7 +250,7 @@ class _Post extends Component {
           <br />
           <Tag tags={this.props.tags} status_id={this.props.id} />
         </article>
-        <div className="collapse" id="Comments">
+        <div className="collapse" id={this.props.id}>
           <CommentList {...this.props} />
           <MoreComment />
           <CommentForm avatar={this.props.account.avatar} />
