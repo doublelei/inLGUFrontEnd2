@@ -14,7 +14,24 @@ class HomepageStore {
         timestamp: Date.parse(new Date())
     };
 
-    status_list = [];
+    status_list = [{
+        "id":'',
+        "url":'',
+        "account":'Santa',
+        "in_reply_to_id":'',
+        "in_repley_to_account_id":'',
+        "language":'',
+        "content": 'Merry ChristmasMerry ChristmasMerry ChristmasMerry ChristmasMerry ChristmasMerry Christmas',
+        "created_at": '2019-01-01',
+        "replies_count":100,
+        "replies":[],
+        "likes_count": 100,
+        "media_attachments": '',
+        "tags": ["tag1", "tag2"],
+        "poll": false,
+        "liked": false,
+        "pinned": false
+        }];
 
     hot_tag = ["hot_tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag"];
     activity_feed = [{ "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }, { "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }];
@@ -56,16 +73,6 @@ class HomepageStore {
     collect_status = {
         status_id: '',
         account_id:''
-    }
-
-    getComment(status_id) {
-        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/context").then(
-            resp => resp.json()
-        ).then(repos => {
-            return repos.descendants
-        }).catch(ex => {
-            console.error(ex);
-        })
     }
 
     collectStatus(status_id) {
@@ -224,7 +231,6 @@ decorate(HomepageStore, {
     show_status_under_tag: observable,
     add_tag: observable,
 
-    getComment: action,
     collectStatus: action,
     deletStatus: action,
     timelinesPublic: action,

@@ -61,39 +61,40 @@ function PostContent(props) {
   )
 }
 
-
-class PostBottom extends Component {
-  render() {
-    let likeButton
-    if (this.liked) {
-      likeButton = (
-        <a id="heart-text" className="post-add-icon inline-items" style={{ color: "#ff5e3a" }} onClick={function like_status() { Stores.HomepageStore.likeStatus(this.status_id) }}>
+function PostBottom(props){
+  if (props.liked){
+    return(
+      <div className="post-additional-info inline-items">
+        <a id="heart-text" className="post-add-icon inline-items" style={{ color: "#ff5e3a" }} onClick={function like_status() { Stores.HomepageStore.likeStatus(props.status_id) }}>
           <svg id="heart-icon" className="olymp-heart-icon" style={{ fill: "#ff5e3a" }}><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
           </use></svg>
-          <span>{this.likes} Liked</span>
+          <span>{props.likes} Liked</span>
         </a>
-      )
-    } else {
-      likeButton = (
-        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.undoLikeStatus(this.status_id) }}>
-          <svg id="heart-icon" className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
-          </use></svg>
-          <span>{this.likes} Likes</span>
-        </a>
-      )
-    }
-    return (
-      <div className="post-additional-info inline-items">
-        {likeButton}
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(this.status_id) }}>
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(props.status_id) }}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
-            <span>{this.comments} Comments</span>
+            <span>{props.comments} Comments</span>
           </a>
         </div>
       </div>
     )
-  }
+  }else{
+    return(
+      <div className="post-additional-info inline-items">
+        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.undoLikeStatus(props.status_id) }}>
+          <svg id="heart-icon" className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
+          </use></svg>
+          <span>{props.likes} Likes</span>
+        </a>
+        <div className="comments-shared">
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(props.status_id) }}>
+            <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
+            <span>{props.comments} Comments</span>
+          </a>
+        </div>
+      </div>
+    )
+  }  
 }
 
 function PostSideButton(props) {
