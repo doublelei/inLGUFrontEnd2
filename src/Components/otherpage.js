@@ -31,19 +31,18 @@ class _OtherPage extends Component {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer" style={{height:"200px"}}></div>
+                <div className="header-spacer" style={{ height: "100px" }}></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div className="ui-block">
-                                <div className="top-header">
-                                    <div className="top-header-author">
-                                        <a href="#" className="author-thumb">
-                                            <img className="img-responsive" src={OtherPageStore.accounts.avatar} alt="author" style={{ width: "132px", height: "132px" }} />
-                                        </a>
+                            <div className="ui-block" style={{ borderTop: "0px" }}>
+                                <div>
+                                    <div className="top-header-author" style={{ top: "0px" }}>
+                                        <img className="author-thumb img-responsive" src={OtherPageStore.accounts.avatar} alt="author" style={{width:"100px", height:"100px"}} />
                                         <div className="author-content">
                                             <a href="#" className="h4 author-name">{OtherPageStore.accounts.username}</a>
                                         </div>
+                                        <button type="button" class="btn btn-success" style={{marginTop:"10px"}}>Follow</button>
                                     </div>
                                 </div>
                             </div>

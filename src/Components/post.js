@@ -13,7 +13,7 @@ function PostInfo(props) {
   if (props.id == GlobalStore.accounts.id) {
     return (
       <div className="post__author author vcard inline-items">
-        <Link to={"/homepage/" + props.id}>
+        <Link to={"/homepage"}>
           <img className="img-responsive" src={props.avatar} alt="author" />
         </Link>
         <div className="author-date">

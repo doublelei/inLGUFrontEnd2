@@ -33,7 +33,7 @@ function Friends(props) {
         <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div className="ui-block">
                 <div className="friend-item">
-                    <div className="friend-item-content">
+                    <div className="friend-item-content" style={{paddingBottom:"0",  paddingTop:"10px"}}>
                         <div className="friend-avatar">
                             <div className="author-thumb">
                                 <Link to={"/otherpage/" + props.id}>
@@ -44,7 +44,7 @@ function Friends(props) {
                                 <a href="#" className="h5 author-name">{props.username}</a>
                             </div>
                         </div>
-                        <div className="friend-count">
+                        <div className="friend-count" style={{marginBottom:"20px"}}>
                             <a href="#" className="friend-count-item">
                                 <div className="h6">{props.following_count}</div>
                                 <div className="title">Follows</div>
@@ -56,14 +56,6 @@ function Friends(props) {
                             <a href="#" className="friend-count-item">
                                 <div className="h6">{props.statuses_count}</div>
                                 <div className="title">Posts</div>
-                            </a>
-                        </div>
-                        <div className="control-block-button">
-                            <a href="#" className="btn btn-control bg-blue">
-                                <svg className="olymp-happy-face-icon"><use xlinkHref="../../public/icons/icons.svg#olymp-happy-face-icon"></use></svg>
-                            </a>
-                            <a href="#" className="btn btn-control bg-purple">
-                                <svg className="olymp-chat---messages-icon"><use xlinkHref="../../public/icons/icons.svg#olymp-chat---messages-icon"></use></svg>
                             </a>
                         </div>
                     </div>

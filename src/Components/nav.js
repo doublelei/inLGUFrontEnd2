@@ -15,16 +15,10 @@ function Search(props) {
         <form className="search-bar w-search notification-list friend-requests">
             <div className="form-group with-button is-empty">
                 <input className="form-control js-user-search selectized" placeholder="Search here people or pages..." type="text" tabIndex="-1" style={{ dispaly: "none" }} />
-                <div className="selectize-control form-control js-user-search multi">
-                    <div className="selectize-input items not-full has-options">
-                        <input type="text" autoComplete="off" tabIndex="" placeholder="Search here people or pages..." style={{ width: "229.859px" }} />
-                    </div>
-                    <div className="selectize-dropdown multi form-control js-user-search" style={{ display: "none", width: "500px", top: "70px", left: "0px" }}>
-                        <div className="selectize-dropdown-content"></div></div></div>
+
                 <button>
                     <svg className="olymp-magnifying-glass-icon"><use xlinkHref="/icons/icons.svg#olymp-magnifying-glass-icon"></use></svg>
                 </button>
-                <span className="material-input"></span>
             </div>
         </form>
     )
@@ -89,8 +83,8 @@ function Author(props) {
     return (
         <div className="author-page author vcard inline-items more">
             <div className="author-thumb">
-                <Link to={"/homepage/" + props.id}>
-                <img className="avatar img-responsive" alt="author" src={props.avatar} style={{ width: "36px", height: "36px" }}/>
+                <Link to={"/homepage"}>
+                    <img className="avatar img-responsive" alt="author" src={props.avatar} style={{ width: "36px", height: "36px" }} />
                 </Link>
                 <span className="icon-status online"></span>
                 <div className="more-dropdown more-with-triangle">
@@ -100,8 +94,10 @@ function Author(props) {
                         </div>
                         <ul className="account-settings">
                             <li>
-                                <svg className="olymp-menu-icon"><use xlinkHref="/icons/icons.svg#olymp-menu-icon"></use></svg>
-                                <span><Link to="/profile">Profile Settings</Link></span>
+                                <Link to={"/profile/" + props.id}>
+                                    <svg className="olymp-menu-icon"><use xlinkHref="/icons/icons.svg#olymp-menu-icon"></use></svg>
+                                    <span>Profile Settings</span>
+                                </Link>
                             </li>
                             <li>
                                 <a href="#">

@@ -81,7 +81,7 @@ function SideMenu(props){
 
 class _Profile extends Component {
     componentWillMount(){
-        GlobalStore.token = this.props.match.params.id;
+        GlobalStore.accounts.id = this.props.match.params.id;
         GlobalStore.getCurrentUser();
     }
     render() {
