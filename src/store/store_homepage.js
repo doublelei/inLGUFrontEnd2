@@ -41,7 +41,7 @@ class HomepageStore {
             "url": '',
             "account": {
                 "id": '',
-                "username": 'Santa',
+                "username": 'hhh',
                 "display_name": 'Santa',
                 "created_at": '0000-00-00',
                 "bio": '',
@@ -62,7 +62,7 @@ class HomepageStore {
                 "url": '',
                 "account": {
                     "id": '',
-                    "username": 'Santa',
+                    "username": 'Sfsfsd',
                     "display_name": 'Santa',
                     "created_at": '0000-00-00',
                     "bio": '',
@@ -83,7 +83,7 @@ class HomepageStore {
                     "url": '',
                     "account": {
                         "id": '',
-                        "username": 'Santa',
+                        "username": 'gfasfas',
                         "display_name": 'Santa',
                         "created_at": '0000-00-00',
                         "bio": '',
@@ -125,7 +125,7 @@ class HomepageStore {
             "url": '',
             "account": {
                 "id": '',
-                "username": 'Santa',
+                "username": 'sdgsdfs',
                 "display_name": 'Santa',
                 "created_at": '0000-00-00',
                 "bio": '',
@@ -160,7 +160,7 @@ class HomepageStore {
         "url": '',
         "account": {
             "id": '',
-            "username": 'Santa',
+            "username": 'fdgdf',
             "display_name": 'Santa',
             "created_at": '0000-00-00',
             "bio": '',
@@ -199,7 +199,7 @@ class HomepageStore {
         account_id: GlobalStore.accounts.id,
         pinned: false,
         anonymous: false,
-        reply_to_status_id: '',
+        in_reply_to_id: '',
         poll_options: []
     };
 
@@ -398,7 +398,7 @@ class HomepageStore {
     undoLikeStatus(status_id) {
         this.like.status_id = status_id;
         this.like.account_id = GlobalStore.accounts.id;
-        fetch(this.basicURL + "/statuses/" + status_id + "/undo_like",
+        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/undo_like",
             {
                 method: 'POST',
                 body: JSON.stringify(this.undo_like),

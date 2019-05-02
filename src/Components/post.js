@@ -46,7 +46,6 @@ function PostInfo(props) {
 }
 
 function PostContent(props) {
-
   if (props.img == null) {
     return (
       <div>
@@ -79,7 +78,7 @@ function PostBottom(props) {
           <span>{props.likes} Liked</span>
         </a>
         <div className="comments-shared">
-          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.reply_to_status_id = props.status_id }}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id }}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -96,7 +95,7 @@ function PostBottom(props) {
         </a>
 
         <div className="comments-shared">
-          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.reply_to_status_id = props.status_id }}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id }}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -112,8 +111,8 @@ function PostSideButton(props) {
       <a className="btn btn-control" onClick={function collectStatus() { Stores.HomepageStore.collectStatus(props.status_id) }}>
         <svg className="olymp-star-icon" data-toggle="tooltip" data-placement="right" data-original-title="Collect Status"><use xlinkHref="/icons/icons.svg#olymp-star-icon"></use></svg>
       </a>
-      <a href="#" className="btn btn-control">
-        <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
+      <a className="btn btn-control">
+        <svg className="olymp-speech-balloon-icon" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.username + ": ")}}><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
       <a className="btn btn-control" onClick={function deleteStatur() { Stores.HomepageStore.deletStatus(props.status_id) }}>
         <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="Delete"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
@@ -137,7 +136,7 @@ function Tag(props) {
 }
 
 function CommentWithChildren(props) {
-  const children = props.replies.map((child, index) => <Comment key={index} {...child}></Comment>)
+  const children = props.replies.map((child, index) => <Comment key={index} fatherid={props.fatherid} {...child}></Comment>)
   return (
     <li className="has-children">
       <div className="post__author author vcard inline-items">
@@ -157,7 +156,9 @@ function CommentWithChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" href="#">Reply</a>
+      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.account.username + ": ")}}>
+        <span href="">Reply</span>
+      </a>
       <ul className="children">
         {children}
       </ul>
@@ -185,16 +186,14 @@ function CommentWithoutChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" href="#">Reply</a>
+      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.account.username + ": ") }}>
+        <span href="">Reply</span>
+      </a>
     </li>
   )
 }
 
 function Comment(props) {
-  // return (
-  //   <CommentWithoutChildren {...props}></CommentWithoutChildren>
-  // )
-
   if (props.replies_count > 0) {
     return (
       <CommentWithChildren {...props}></CommentWithChildren>
@@ -207,7 +206,7 @@ function Comment(props) {
 }
 
 function CommentList(props) {
-  const comments = props.replies.map((comment, index) => <Comment key={index} {...comment}></Comment>);
+  const comments = props.replies.map((comment, index) => <Comment key={index} fatherid={props.id} {...comment}></Comment>);
   return (
     <ul className="comments-list">
       {comments}
@@ -227,10 +226,12 @@ function CommentForm(props) {
       <div className="post__author author vcard inline-items">
         <img className="img-responsive" alt="author" src={props.avatar} />
         <div className="form-group with-icon-right is-empty">
-          <textarea id="new-comment" className="form-control" placeholder=" " />
+          <textarea id={props.id} className="form-control" placeholder="" />
           <span className="material-input" /></div>
       </div>
-      <button className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#new-comment').val(), false); $('#new-comment').val("") }}>Comment</button>
+      <Link to={"/homepage/" + GlobalStore.accounts.id}>
+        <button type="button" className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#' + props.id).val(), false); $('#' + props.id).val("") }}>Comment</button>
+      </Link>
     </form>
   )
 }
@@ -297,14 +298,14 @@ class _Post extends Component {
               {this.props.poll.options.map((option) => <Pollcontent voted={this.props.poll.voted} {...option} />)}
             </ul>
             <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
-            <PostSideButton status_id={this.props.id} />
+            <PostSideButton status_id={this.props.id} username={this.props.account.username}/>
             <br />
             <Tag tags={this.props.tags} status_id={this.props.id} />
           </article>
           <div className="collapse" id={this.props.id}>
-            <CommentList {...this.props} />
-            <MoreComment />
-            <CommentForm avatar={this.props.account.avatar} />
+            <CommentList fatherid={this.props.id} {...this.props} />
+            {/* <MoreComment />
+            <CommentForm id={this.props.id} avatar={this.props.account.avatar} /> */}
           </div>
         </div>)
       } else {
@@ -315,14 +316,14 @@ class _Post extends Component {
               <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
               <PostContent content={this.props.content} img={this.props.img} />
               <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
-              <PostSideButton status_id={this.props.id} />
+              <PostSideButton status_id={this.props.id} username={this.props.account.username}/>
               <br />
               <Tag tags={this.props.tags} status_id={this.props.id} />
             </article>
             <div className="collapse" id={this.props.id}>
-              <CommentList {...this.props} />
-              <MoreComment />
-              <CommentForm avatar={this.props.account.avatar} />
+              <CommentList fatherid={this.props.id} {...this.props} />
+              {/* <MoreComment /> */}
+              {/* <CommentForm id={this.props.id} avatar={this.props.account.avatar} /> */}
             </div>
           </div>
         );
