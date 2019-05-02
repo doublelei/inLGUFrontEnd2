@@ -19,8 +19,8 @@ class globalStore {
         "avatar": "/img/author-page.jpg ",
     };
     getCurrentUser() {
-        fetch(this.basicURL + "/accounts", {
-            method: 'POST',
+        fetch(this.basicURL + "/accounts/" + this.accounts.id, {
+            method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': 'Basic ' + window.btoa(this.accounts.id + ":" + "unused")
