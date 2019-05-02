@@ -79,7 +79,7 @@ function PostBottom(props) {
           <span>{props.likes} Liked</span>
         </a>
         <div className="comments-shared">
-          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.reply_to_status_id = props.status_id }}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -96,7 +96,7 @@ function PostBottom(props) {
         </a>
 
         <div className="comments-shared">
-          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.reply_to_status_id = props.status_id }}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -230,26 +230,72 @@ function CommentForm(props) {
           <textarea id="new-comment" className="form-control" placeholder=" " />
           <span className="material-input" /></div>
       </div>
-      <button className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#new-comment').val(), false); $('#new-comment').val("")}}>Comment</button>
-
+      <button className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#new-comment').val(), false); $('#new-comment').val("") }}>Comment</button>
     </form>
   )
 }
 
-class _Post extends Component {
+function Pollcontent(props) {
+  if (props.voted) {
+    return (
+      <li>
+        <div class="skills-item">
+          <div class="skills-item-info">
+            <span class="skills-item-title">
+              <span class="radio" >
+                <label style={{ paddingLeft: "0px" }}>
+                  {props.title}
+                </label>
+              </span>
+            </span>
+            <span class="skills-item-count"><span class="count-animate" data-speed="1000" data-refresh-interval="50" data-to="11" data-from="0"></span><span class="units">{props.votes_count}</span></span>
+          </div>
+          <div class="skills-item-meter">
+            <span class="skills-item-meter-active bg-primary skills-animate" style={{ width: props.votes_count, opacity: "1" }}></span>
+          </div>
+        </div>
+      </li>)
+  } else {
+    return (
+      <li>
+        <div class="skills-item">
+          <div class="skills-item-info">
+            <span class="skills-item-title">
+              <span class="radio">
+                <label>
+                  <input type="radio" name="optionsRadios" /><span class="circle"></span><span class="check"></span>
+                  {props.title}
+                </label>
+              </span>
+            </span>
+            <span class="skills-item-count"><span class="count-animate" data-speed="1000" data-refresh-interval="50" data-to="11" data-from="0"></span><span class="units">{props.votes_count}</span></span>
+          </div>
+          <div class="skills-item-meter">
+            <span class="skills-item-meter-active bg-primary skills-animate" style={{ width: props.votes_count, opacity: "1" }}></span>
+          </div>
+        </div>
+      </li>
+    )
+  }
+}
 
+class _Post extends Component {
   render() {
     if (this.props.content == 'This content is muted.') {
       return (
         <div> </div>
       )
     } else {
-      return (
-        <div className="ui-block">
-          {console.log(this.props.liked)}
+      if (this.props.poll != null) {
+        return (<div className="ui-block">
           <article className="hentry post has-post-thumbnail">
             <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
-            <PostContent content={this.props.content} img={this.props.img} />
+            <ul className="widget w-poll">
+              <p>
+                {this.props.content}
+              </p>
+              {this.props.poll.options.map((option) => <Pollcontent voted={this.props.poll.voted} {...option} />)}
+            </ul>
             <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
             <PostSideButton status_id={this.props.id} />
             <br />
@@ -260,8 +306,27 @@ class _Post extends Component {
             <MoreComment />
             <CommentForm avatar={this.props.account.avatar} />
           </div>
-        </div>
-      );
+        </div>)
+      } else {
+        return (
+          <div className="ui-block">
+            {console.log(this.props.liked)}
+            <article className="hentry post has-post-thumbnail">
+              <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
+              <PostContent content={this.props.content} img={this.props.img} />
+              <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
+              <PostSideButton status_id={this.props.id} />
+              <br />
+              <Tag tags={this.props.tags} status_id={this.props.id} />
+            </article>
+            <div className="collapse" id={this.props.id}>
+              <CommentList {...this.props} />
+              <MoreComment />
+              <CommentForm avatar={this.props.account.avatar} />
+            </div>
+          </div>
+        );
+      }
     }
   }
 }

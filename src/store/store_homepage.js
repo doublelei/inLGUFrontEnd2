@@ -13,6 +13,8 @@ class HomepageStore {
 
     poll = []
 
+    options = []
+
     status_list = [{
         "id": '123',
         "url": '',
@@ -101,21 +103,21 @@ class HomepageStore {
                     "likes_count": '123',
                     "media_attachments": "",
                     "tags": [],
-                    "poll": '',
+                    "poll": null,
                     "liked": true,
                     "pinned": ''
                 }],
                 "likes_count": '123',
                 "media_attachments": "",
                 "tags": [],
-                "poll": '',
+                "poll": null,
                 "liked": true,
                 "pinned": ''
             }],
             "likes_count": '123',
             "media_attachments": "",
             "tags": [],
-            "poll": '',
+            "poll": null,
             "liked": true,
             "pinned": ''
         }, {
@@ -143,14 +145,14 @@ class HomepageStore {
             "likes_count": '123',
             "media_attachments": "",
             "tags": [],
-            "poll": '',
+            "poll": null,
             "liked": true,
             "pinned": ''
         }],
         "likes_count": '123',
         "media_attachments": "",
         "tags": [],
-        "poll": '',
+        "poll": {"voted": true, "options": [{"title": "12334", "votes_count": "16%"}, {"title": "123145", "votes_count": "62%"}]},
         "liked": true,
         "pinned": ''
     }, {
@@ -178,7 +180,7 @@ class HomepageStore {
         "likes_count": '123',
         "media_attachments": "",
         "tags": [],
-        "poll": '',
+        "poll": null,
         "liked": true,
         "pinned": ''
     }];
@@ -197,7 +199,8 @@ class HomepageStore {
         account_id: GlobalStore.accounts.id,
         pinned: false,
         anonymous: false,
-        reply_to_status_id: ''
+        reply_to_status_id: '',
+        poll_options: []
     };
 
     attachment = { file: '', status_id: '869a4cd1-cdb7-4186-b4fe-79e216a8835c' };
@@ -347,9 +350,13 @@ class HomepageStore {
     };
 
     postStatus(content, anonymous) {
-        this.new_status.content = content;
-        if (len(this.poll) > 0) {
+        if (this.poll.length > 0) {
             this.new_status.content = this.poll[0]
+            for (var i = 1; i < this.poll.length; i++) {
+                this.new_status.poll_options.push({"title": this.poll[i]})
+            }
+        } else {
+            this.new_status.content = content;
         }
         this.new_status.anonymous = anonymous;
         this.new_status.account_id = GlobalStore.accounts.id;
@@ -362,12 +369,10 @@ class HomepageStore {
                     'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             }).then(res => res.json())
-            .then(res => console.log(res))
-            // .then(resp => this.attachment.status_id = resp.id)
-            .then(console.log("123"))
-            .then(console.log("345"))
             .then(response => { console.log('Success:', response); toast.success("Posted") })
-            .then(this.uploadAttachment())
+            .then(this.new_status.poll_options = [])
+            .then(this.poll = [])
+            // .then(this.uploadAttachment())
             .then(this.timelinesPublic())
             .catch(error => { console.error('Error:', error); toast.error("Posted failed") })
     };

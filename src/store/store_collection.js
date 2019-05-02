@@ -3,18 +3,175 @@ import GlobalStore from './store_global.js'
 import { toast } from 'react-toastify';
 
 class CollectionStore {
-    status_list = [
-        {
-            "account": { "id":"123", "username": "Min Tian", "avatar": "/../../public/img/author-page.jpg " }, "content": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.", "likes_count": "18", "replies_count": "20",
-            "tags": ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag"], "created_at": "March 8 at 6:42pm",
-            "comments": [{
-                "account": { "username": "Min Tian", "avatar": "/../../public/img/author-page.jpg " }, "content": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.", "likes_count": "18", "replies_count": "20",
-                "tags": ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag"], "created_at": "March 8 at 6:42pm", "replies_count": 10, "chidren": [{
-                    "account": { "username": "Min Tian", "avatar": "/../../public/img/author-page.jpg " }, "content": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.", "likes_count": "18", "replies_count": "20",
-                    "tags": ["tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag"], "created_at": "March 8 at 6:42pm", "replies_count": 0, "chidren": []
-                }]
-            }]
-        }];
+    status_list = [{
+        "id": '123',
+        "url": '',
+        "account": {
+            "id": '',
+            "username": 'Santa',
+            "display_name": 'Santa',
+            "created_at": '0000-00-00',
+            "bio": '',
+            "followers_count": '123',
+            "following_count": '123',
+            "statuses_count": '123',
+            "url": '123',
+            "avatar": ''
+        },
+        "in_reply_to_id": '',
+        "in_repley_to_account_id": '',
+        "language": '',
+        "content": 'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+        "created_at": '1991-12-24',
+        "replies_count": 2,
+        "replies": [{
+            "id": '1234',
+            "url": '',
+            "account": {
+                "id": '',
+                "username": 'Santa',
+                "display_name": 'Santa',
+                "created_at": '0000-00-00',
+                "bio": '',
+                "followers_count": '123',
+                "following_count": '123',
+                "statuses_count": '123',
+                "url": '123',
+                "avatar": ''
+            },
+            "in_reply_to_id": '123',
+            "in_repley_to_account_id": '',
+            "language": '',
+            "content": 'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+            "created_at": '1991-12-24',
+            "replies_count": 1,
+            "replies": [{
+                "id": '1234',
+                "url": '',
+                "account": {
+                    "id": '',
+                    "username": 'Santa',
+                    "display_name": 'Santa',
+                    "created_at": '0000-00-00',
+                    "bio": '',
+                    "followers_count": '123',
+                    "following_count": '123',
+                    "statuses_count": '123',
+                    "url": '123',
+                    "avatar": ''
+                },
+                "in_reply_to_id": '123',
+                "in_repley_to_account_id": '',
+                "language": '',
+                "content": 'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+                "created_at": '1991-12-24',
+                "replies_count": 1,
+                "replies": [{
+                    "id": '',
+                    "url": '',
+                    "account": {
+                        "id": '',
+                        "username": 'Santa',
+                        "display_name": 'Santa',
+                        "created_at": '0000-00-00',
+                        "bio": '',
+                        "followers_count": '123',
+                        "following_count": '123',
+                        "statuses_count": '123',
+                        "url": '123',
+                        "avatar": ''
+                    },
+                    "in_reply_to_id": '1234',
+                    "in_repley_to_account_id": '',
+                    "language": '',
+                    "content": 'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+                    "created_at": '1991-12-24',
+                    "replies_count": 0,
+                    "replies": [],
+                    "likes_count": '123',
+                    "media_attachments": "",
+                    "tags": [],
+                    "poll": '',
+                    "liked": true,
+                    "pinned": ''
+                }],
+                "likes_count": '123',
+                "media_attachments": "",
+                "tags": [],
+                "poll": '',
+                "liked": true,
+                "pinned": ''
+            }],
+            "likes_count": '123',
+            "media_attachments": "",
+            "tags": [],
+            "poll": '',
+            "liked": true,
+            "pinned": ''
+        }, {
+            "id": '',
+            "url": '',
+            "account": {
+                "id": '',
+                "username": 'Santa',
+                "display_name": 'Santa',
+                "created_at": '0000-00-00',
+                "bio": '',
+                "followers_count": '123',
+                "following_count": '123',
+                "statuses_count": '123',
+                "url": '123',
+                "avatar": ''
+            },
+            "in_reply_to_id": '1234',
+            "in_repley_to_account_id": '',
+            "language": '',
+            "content": 'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+            "created_at": '1991-12-24',
+            "replies_count": 0,
+            "replies": [],
+            "likes_count": '123',
+            "media_attachments": "",
+            "tags": [],
+            "poll": '',
+            "liked": true,
+            "pinned": ''
+        }],
+        "likes_count": '123',
+        "media_attachments": "",
+        "tags": [],
+        "poll": '',
+        "liked": true,
+        "pinned": ''
+    }, {
+        "id": '12333',
+        "url": '',
+        "account": {
+            "id": '',
+            "username": 'Santa',
+            "display_name": 'Santa',
+            "created_at": '0000-00-00',
+            "bio": '',
+            "followers_count": '123',
+            "following_count": '123',
+            "statuses_count": '123',
+            "url": '123',
+            "avatar": ''
+        },
+        "in_reply_to_id": '',
+        "in_repley_to_account_id": '',
+        "language": '',
+        "content": 'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+        "created_at": '1991-12-24',
+        "replies_count": 0,
+        "replies": [],
+        "likes_count": '123',
+        "media_attachments": "",
+        "tags": [],
+        "poll": '',
+        "liked": true,
+        "pinned": ''
+    }];
     getCollection() {
         fetch(GlobalStore.basicURL + "/collections",
         {
