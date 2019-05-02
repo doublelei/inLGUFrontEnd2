@@ -3,8 +3,6 @@ import { toast } from 'react-toastify';
 import Stores from './stores.js';
 import GlobalStore from './store_global.js';
 import { extendObservable } from 'mobx';
-import { Base64 } from 'js-base64';
-import { set } from '_mobx@5.9.4@mobx';
 
 class HomepageStore {
     time_stamp = {
@@ -132,7 +130,6 @@ class HomepageStore {
             })
             .then(function (res) { toast.success("Add Tag Succeed"); this.timelinesPublic() })
             .catch(function (error) { toast.error("Add Tag Failed"); console.log('Add Tag Error:', error) })
-        window.location.reload()
     };
 
     postStatus(content, anonymous) {
@@ -149,7 +146,6 @@ class HomepageStore {
                 })
             }).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Posted") })
-            .then(window.location.reload())
             .catch(error => { console.error('Error:', error); toast.error("Posted failed") })        
     };
 
@@ -167,7 +163,6 @@ class HomepageStore {
                 })
             })
             .then(function (res) { })
-            .then(this.timelinesPublic())
             .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
     };
 
