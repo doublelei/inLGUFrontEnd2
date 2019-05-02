@@ -89,7 +89,9 @@ function Author(props) {
     return (
         <div className="author-page author vcard inline-items more">
             <div className="author-thumb">
-                <img className="avatar img-responsive" alt="author" src={props.avatar} style={{ width: "36px", height: "36px" }} />
+                <Link to={"/homepage/" + props.id}>
+                <img className="avatar img-responsive" alt="author" src={props.avatar} style={{ width: "36px", height: "36px" }}/>
+                </Link>
                 <span className="icon-status online"></span>
                 <div className="more-dropdown more-with-triangle">
                     <div className="mCustomScrollbar ps ps--theme_default" data-mcs-theme="dark" data-ps-id="159c809c-36e9-fa65-ea20-01a26d50da7d">

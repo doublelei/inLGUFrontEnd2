@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Homepage from './Components/homePage.js'
 import Profile from './Components/profilePage.js'
+import OtherPage from './Components/otherpage.js'
 import { Follow, Follower } from './Components/follow.js'
 import { MyPost, Collections } from './Components/collection.js'
 import NotFound from './Components/404.js'
@@ -26,6 +27,7 @@ ReactDOM.render(
                 <Route path="/follower" component={Follower} />
                 <Route path="/collection" component={Collections} />
                 <Route path="/mypost" component={MyPost} />
+                <Route path="/otherpage/:id" component={OtherPage} />
                 <Route path="/404" component={NotFound} />
             </Switch>
         </Router>

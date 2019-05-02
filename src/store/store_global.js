@@ -1,6 +1,5 @@
 import { observable, action, decorate } from 'mobx';
 import { toast } from 'react-toastify';
-import { Base64 } from 'js-base64';
 
 class globalStore {
     basicURL = "https://inlgu-api.rainbowsound.me/api/v1";
@@ -25,12 +24,16 @@ class globalStore {
                 'Content-Type': 'application/json',
                 'Authorization': 'Basic ' + window.btoa(this.accounts.id + ":" + "unused")
             })
-        }).then(
-            resp => resp.json()
-        ).then(repos => {
-            this.accounts = repos.data;
-            toast.success("Login Succeed")
         })
+            .then(
+                resp => resp.json()
+            )
+            .then(repos => {
+                console.log(repos)
+                this.accounts = repos;
+                console.log(this.accounts)
+                toast.success("Login Succeed")
+            })
             .catch(function (error) { console.log('Error:', error); toast.error("Login Failed") })
     };
 

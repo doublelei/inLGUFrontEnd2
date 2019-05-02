@@ -38,13 +38,14 @@ class _Homepage extends Component {
         GlobalStore.accounts.id = this.props.match.params.id;
         GlobalStore.getCurrentUser();
         this.props.HomepageStore.timelinesPublic();
+        console.log(this.props.HomepageStore.status_list)
         this.props.HomepageStore.getHotTags();
     }
     render() {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer"></div>
+                <div className="header-spacer" style={{height:"200px"}}></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">

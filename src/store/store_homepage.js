@@ -173,7 +173,7 @@ class HomepageStore {
                 })
             }).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Posted") })
-            .catch(error => { console.error('Error:', error); toast.error("Posted failed") })        
+            .catch(error => { console.error('Error:', error); toast.error("Posted failed") })
     };
 
     likeStatus(status_id) {
