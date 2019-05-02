@@ -22,7 +22,7 @@ export default class DropzoneComp extends React.Component {
         this.setState({
             files,
         })
-        $("#upload").attr('src', URL.createObjectURL(files[0]))
+        // $("#upload").attr('src', URL.createObjectURL(files[0]))
     }
     render() {
         const imgs = this.state.files.map((file, index) => (

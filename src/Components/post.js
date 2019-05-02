@@ -185,7 +185,7 @@ function CommentForm(props) {
   )
 }
 
-class Post extends Component {
+class _Post extends Component {
   render() {
     return (
       <div className="ui-block">
@@ -209,5 +209,5 @@ class Post extends Component {
   }
 }
 
-
+const Post = observer(_Post)
 export default Post;

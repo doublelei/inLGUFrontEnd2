@@ -20,7 +20,7 @@ function NewPostInput(props) {
                 <label className="control-label">Share what you are thinking here...</label>
                 <textarea className="form-control" placeholder="" id="status_content" ></textarea>
             </div>
-            <img id="upload" className="img-responsive rounded float ml-10" alt="" src="" style={{ marginLeft: "20px", width: "100px", height: "100px" }} />
+            {/* <img id="upload" className="img-responsive rounded float ml-10" alt="" src="" style={{ marginLeft: "20px", width: "100px", height: "100px" }} /> */}
         </div>
     )
 }
