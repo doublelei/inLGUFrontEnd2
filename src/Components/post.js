@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 import Stores from '../store/stores.js';
 import $ from 'jquery'
 import { toast } from 'react-toastify';
-import { observable, action, decorate } from 'mobx';
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
-import {Link} from 'react-router-dom'
-var comments = observable([])
+import { Link } from 'react-router-dom'
 
 function PostInfo(props) {
   if (props.id == GlobalStore.accounts.id) {
@@ -48,65 +46,76 @@ function PostInfo(props) {
 }
 
 function PostContent(props) {
-  return (
-    <div>
-      <a href="#" data-target="#post-view-photo" data-toggle="modal">
-        <img className="img-responsive" style={{ marginRight: "1rem" }} className="rounded float-left" src={props.img} alt="Pic Loading Failed" />
-      </a>
-      <p>
-        {props.content}
-      </p>
-    </div>
-  )
+  if (props.img == null) {
+    return (
+      <div>
+        <p>
+          {props.content}
+        </p>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <a href="#" data-target="#post-view-photo" data-toggle="modal">
+          <img className="img-responsive" style={{ marginRight: "1rem" }} className="rounded float-left" src={props.img} alt="Pic Loading Failed" />
+        </a>
+        <p>
+          {props.content}
+        </p>
+      </div>
+    )
+  }
+
 }
 
-function PostBottom(props){
-  if (props.liked){
-    return(
+function PostBottom(props) {
+  if (props.liked) {
+    return (
       <div className="post-additional-info inline-items">
-        <a id="heart-text" className="post-add-icon inline-items" style={{ color: "#ff5e3a" }} onClick={function like_status() { Stores.HomepageStore.likeStatus(props.status_id) }}>
+        <a id="heart-text" className="post-add-icon inline-items" style={{ color: "#ff5e3a" }} onClick={function like_status() { Stores.HomepageStore.undoLikeStatus(props.status_id) }}>
           <svg id="heart-icon" className="olymp-heart-icon" style={{ fill: "#ff5e3a" }}><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
           </use></svg>
           <span>{props.likes} Liked</span>
         </a>
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(props.status_id) }}>
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments">
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
         </div>
       </div>
     )
-  }else{
-    return(
+  } else {
+    return (
       <div className="post-additional-info inline-items">
-        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.undoLikeStatus(props.status_id) }}>
+        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.likeStatus(props.status_id) }}>
           <svg id="heart-icon" className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
           </use></svg>
           <span>{props.likes} Likes</span>
         </a>
-        
+
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(props.status_id) }}>
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments">
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
         </div>
       </div>
     )
-  }  
+  }
 }
 
 function PostSideButton(props) {
   return (
     <div className="control-block-button post-control-button">
-      <a className="btn btn-control" onClick={function collectStatus(){Stores.HomepageStore.collectStatus(props.status_id)}}>
+      <a className="btn btn-control" onClick={function collectStatus() { Stores.HomepageStore.collectStatus(props.status_id) }}>
         <svg className="olymp-star-icon" data-toggle="tooltip" data-placement="right" data-original-title="Collect Status"><use xlinkHref="/icons/icons.svg#olymp-star-icon"></use></svg>
       </a>
       <a href="#" className="btn btn-control">
         <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
-      <a className="btn btn-control" onClick={ function deleteStatur(){Stores.HomepageStore.deletStatus(props.status_id); toast.warn("Deleted")}}>
+      <a className="btn btn-control" onClick={function deleteStatur() { Stores.HomepageStore.deletStatus(props.status_id)}}>
         <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="Delete"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
       </a>
     </div>
@@ -183,7 +192,7 @@ function CommentWithoutChildren(props) {
 
 function Comment(props) {
   return (
-    <CommentWithoutChildren {...comments}></CommentWithoutChildren>
+    <CommentWithoutChildren {...props}></CommentWithoutChildren>
   )
 
   if (props.replies_count > 0) {
@@ -198,7 +207,7 @@ function Comment(props) {
 }
 
 function CommentList(props) {
-  const comments = props.comments.map((comment, index) => <Comment key={index} {...comment}></Comment>);
+  const comments = props.replies.map((comment, index) => <Comment key={index} {...comment}></Comment>);
   return (
     <ul className="comments-list">
       {comments}
@@ -228,10 +237,11 @@ function CommentForm(props) {
 }
 
 class _Post extends Component {
+  
   render() {
     return (
       <div className="ui-block">
-        {console.log(this.props)}
+        {console.log(this.props.liked)}
         <article className="hentry post has-post-thumbnail">
           <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
           <PostContent content={this.props.content} img={this.props.img} />
@@ -241,7 +251,7 @@ class _Post extends Component {
           <Tag tags={this.props.tags} status_id={this.props.id} />
         </article>
         <div className="collapse" id="Comments">
-          {/* <CommentList {...this.props} /> */}
+          <CommentList {...this.props} />
           <MoreComment />
           <CommentForm avatar={this.props.account.avatar} />
         </div>

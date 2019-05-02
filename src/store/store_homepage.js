@@ -1,9 +1,6 @@
 import { observable, action, decorate } from 'mobx';
 import { toast } from 'react-toastify';
-import Stores from './stores.js';
 import GlobalStore from './store_global.js';
-import { extendObservable } from 'mobx';
-import { Base64 } from 'js-base64';
 
 class HomepageStore {
     time_stamp = {
@@ -16,7 +13,7 @@ class HomepageStore {
 
     status_list = [];
 
-    hot_tag = ["hot_tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag"];
+    hot_tag = []
     activity_feed = [{ "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }, { "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }];
     notification = [];
 
@@ -33,7 +30,7 @@ class HomepageStore {
         reply_to_status_id: ''
     };
 
-    attachment = {file:'', status_id:''};
+    attachment = { file: '', status_id: '869a4cd1-cdb7-4186-b4fe-79e216a8835c' };
 
     like = {
         status_id: '',
@@ -90,13 +87,14 @@ class HomepageStore {
                 })
             })
             .then(function (res) { })
-            .then(this.loadMoreTimelines())
+            .then(toast.warn("Deleted"))
+            .then(this.timelinesPublic())
             .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
 
     };
 
     timelinesPublic() {
-        fetch('https://inlgu-api.rainbowsound.me/api/v1/timelines/public',
+        fetch(GlobalStore.basicURL + '/timelines/public',
             {
                 method: 'GET',
                 headers: new Headers({
@@ -135,8 +133,14 @@ class HomepageStore {
     }
 
     getHotTags() {
-        fetch(GlobalStore.basicURL + "/tags/", { mode: "no-cors" })
-            .then(function (res) { this.hot_tag = res })
+        fetch(GlobalStore.basicURL + "/hot_tags/10", {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        })
+            .then(res => res.json())
+            .then(res => this.hot_tag = res.data)
             .catch(function (error) { toast.error("Get Hot Tags Failed"); console.log('Get Hot Tag Error:', error) })
     };
 
@@ -177,8 +181,12 @@ class HomepageStore {
                     'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             }).then(res => res.json())
-            .then(res => this.attachment.status_id = res.data[0].id)
+            .then(res => console.log(res))
+            // .then(resp => this.attachment.status_id = resp.id)
+            .then(console.log("123"))
+            .then(console.log("345"))
             .then(response => { console.log('Success:', response); toast.success("Posted") })
+            .then(this.uploadAttachment())
             .then(this.timelinesPublic())
             .catch(error => { console.error('Error:', error); toast.error("Posted failed") })
     };
@@ -196,15 +204,15 @@ class HomepageStore {
                     'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             })
-            .then(function (res) { })
+            .then(response => { console.log('Success:', response); toast.success("Liked") })
             .then(this.timelinesPublic())
-            .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
+            .catch(function (error) { toast.error("Like Status Failed"); console.log('Error:', error) })
     };
 
     undoLikeStatus(status_id) {
         this.like.status_id = status_id;
         this.like.account_id = GlobalStore.accounts.id;
-        fetch(this.basicURL + "/status/" + this.like_status + "/undo_like",
+        fetch(this.basicURL + "/statuses/" + status_id + "/undo_like",
             {
                 method: 'POST',
                 body: JSON.stringify(this.undo_like),
@@ -214,7 +222,6 @@ class HomepageStore {
                 })
             }
         )
-            .then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Unliked") })
             .then(this.timelinesPublic())
             .catch(error => { console.error('Error:', error); toast.error("Unliked failed") })

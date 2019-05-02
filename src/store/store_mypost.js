@@ -31,7 +31,7 @@ class MyPostStore {
             })
         })
         .then(resp => resp.json())
-        .then(repos => {this.tatus_list = repos.data})
+        .then(repos => {this.status_list = repos.data})
         .catch(ex => {console.error(ex); toast.error("Get My Posts Failed")})
     }
 };
