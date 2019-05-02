@@ -11,7 +11,111 @@ class HomepageStore {
         timestamp: Date.parse(new Date())
     };
 
-    status_list = [];
+    status_list = [{
+        "id":'123',
+            "url":'',
+            "account":{"id": '',
+            "username": 'Santa',
+            "display_name": 'Santa',
+            "created_at": '0000-00-00',
+            "bio":'',
+            "followers_count": '123',
+            "following_count": '123',
+            "statuses_count": '123',
+            "url": '123',
+            "avatar": ''},
+            "in_reply_to_id":'',
+            "in_repley_to_account_id":'',
+            "language":'',
+            "content":'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+            "created_at":'1991-12-24',
+            "replies_count":'12',
+            "replies":[{
+                "id":'1234',
+                    "url":'',
+                    "account":{"id": '',
+                    "username": 'Santa',
+                    "display_name": 'Santa',
+                    "created_at": '0000-00-00',
+                    "bio":'',
+                    "followers_count": '123',
+                    "following_count": '123',
+                    "statuses_count": '123',
+                    "url": '123',
+                    "avatar": ''},
+                    "in_reply_to_id":'123',
+                    "in_repley_to_account_id":'',
+                    "language":'',
+                    "content":'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+                    "created_at":'1991-12-24',
+                    "replies_count":'12',
+                    "replies":[],
+                    "likes_count":'123',
+                    "media_attachments":"",
+                    "tags": [],
+                    "poll":'',
+                    "liked":true,
+                    "pinned":''
+            },{
+                "id":'',
+                    "url":'',
+                    "account":{"id": '',
+                    "username": 'Santa',
+                    "display_name": 'Santa',
+                    "created_at": '0000-00-00',
+                    "bio":'',
+                    "followers_count": '123',
+                    "following_count": '123',
+                    "statuses_count": '123',
+                    "url": '123',
+                    "avatar": ''},
+                    "in_reply_to_id":'1234',
+                    "in_repley_to_account_id":'',
+                    "language":'',
+                    "content":'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+                    "created_at":'1991-12-24',
+                    "replies_count":'12',
+                    "replies":[],
+                    "likes_count":'123',
+                    "media_attachments":"",
+                    "tags": [],
+                    "poll":'',
+                    "liked":true,
+                    "pinned":''
+            }],
+            "likes_count":'123',
+            "media_attachments":"",
+            "tags": [],
+            "poll":'',
+            "liked":true,
+            "pinned":''
+    },{
+        "id":'12333',
+            "url":'',
+            "account":{"id": '',
+            "username": 'Santa',
+            "display_name": 'Santa',
+            "created_at": '0000-00-00',
+            "bio":'',
+            "followers_count": '123',
+            "following_count": '123',
+            "statuses_count": '123',
+            "url": '123',
+            "avatar": ''},
+            "in_reply_to_id":'',
+            "in_repley_to_account_id":'',
+            "language":'',
+            "content":'Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!Merry Christmas!',
+            "created_at":'1991-12-24',
+            "replies_count":'12',
+            "replies":[],
+            "likes_count":'123',
+            "media_attachments":"",
+            "tags": [],
+            "poll":'',
+            "liked":true,
+            "pinned":''
+    }];
 
     hot_tag = []
     activity_feed = [{ "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }, { "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }];
@@ -144,12 +248,20 @@ class HomepageStore {
             .catch(function (error) { toast.error("Get Hot Tags Failed"); console.log('Get Hot Tag Error:', error) })
     };
 
+    getAllStatusIn(tag_name){
+        fetch(GlobalStore.basicURL + '/timelines/tag/' + tag_name,
+            {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
+            })
+            .then(resp => resp.json())
+            .then(repos => { this.status_list = repos.data })
+            .catch(ex => { console.error(ex); toast.error("Get Timeline by Tag Failed") })
+    }
 
-    showStatusUnderTag(tag) {
-        fetch(GlobalStore.basicURL + "/timelines/tag/" + tag)
-            .then(function (res) { this.status_list = res })
-            .catch(function (error) { toast.error("Get Status by Tags Failed"); console.log('Get Status by Tag Error:', error) })
-    };
 
     // tag_id will be set when the + button is clicked
     tagStatus(tag_name) {
@@ -242,11 +354,12 @@ decorate(HomepageStore, {
     show_status_under_tag: observable,
     add_tag: observable,
 
+
     collectStatus: action,
     deletStatus: action,
     timelinesPublic: action,
     getHotTags: action,
-    showStatusUnderTag: action,
+    getAllStatusIn: action,
     tagStatus: action,
     postStatus: action,
     likeStatus: action,
