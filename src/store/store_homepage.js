@@ -82,13 +82,22 @@ class HomepageStore {
     };
 
     timelinesPublic() {
-        fetch('https://inlgu-api.rainbowsound.me/api/v1/timelines/public').then(
-            resp => resp.json()
-        ).then(repos => {
-            this.status_list = repos.data
-        }).catch(ex => {
-            console.error(ex);
-        })
+        fetch('https://inlgu-api.rainbowsound.me/api/v1/timelines/public',
+            {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
+            })
+            .then(
+                resp => resp.json()
+            ).then(repos => {
+                console.log(repos)
+                this.status_list = repos.data
+            }).catch(ex => {
+                console.error(ex);
+            })
     };
 
     loadMoreTimelines() {
@@ -147,7 +156,7 @@ class HomepageStore {
                 })
             }).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Posted") })
-            .catch(error => { console.error('Error:', error); toast.error("Posted failed") })        
+            .catch(error => { console.error('Error:', error); toast.error("Posted failed") })
     };
 
     likeStatus(status_id) {

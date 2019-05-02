@@ -38,6 +38,7 @@ class _Homepage extends Component {
         GlobalStore.accounts.id = this.props.match.params.id;
         GlobalStore.getCurrentUser();
         this.props.HomepageStore.timelinesPublic();
+        console.log(this.props.HomepageStore.status_list)
         this.props.HomepageStore.getHotTags();
     }
     render() {
