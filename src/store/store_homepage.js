@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import Stores from './stores.js';
 import GlobalStore from './store_global.js';
 import { extendObservable } from 'mobx';
+import { Base64 } from 'js-base64';
 
 class HomepageStore {
     time_stamp = {
