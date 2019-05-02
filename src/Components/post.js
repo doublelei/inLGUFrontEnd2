@@ -157,7 +157,7 @@ function CommentWithChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" href="#">Reply</a>
+      <a className="reply" href="#new-comment" onClick={function changeReplyID(){Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#new-comment').val("To @ " + props.account.username + ": ")}}>Reply</a>
       <ul className="children">
         {children}
       </ul>
@@ -185,7 +185,7 @@ function CommentWithoutChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" href="#">Reply</a>
+      <a className="reply" href="#new-comment" onClick={function changeReplyID(){Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#new-comment').val("To @ " + props.account.username + ": ")}}>Reply</a>
     </li>
   )
 }

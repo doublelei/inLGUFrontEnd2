@@ -348,7 +348,7 @@ class HomepageStore {
 
     postStatus(content, anonymous) {
         this.new_status.content = content;
-        if (len(this.poll) > 0) {
+        if (this.poll.length > 0) {
             this.new_status.content = this.poll[0]
         }
         this.new_status.anonymous = anonymous;
