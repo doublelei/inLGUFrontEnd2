@@ -4,6 +4,7 @@ import Stores from '../store/stores.js';
 import $ from 'jquery'
 import { toast } from 'react-toastify';
 import { observable, action, decorate } from 'mobx';
+import { observer, inject } from "mobx-react";
 
 var comments = observable([])
 
