@@ -13,7 +13,7 @@ function PostInfo(props) {
   if (props.id == GlobalStore.accounts.id) {
     return (
       <div className="post__author author vcard inline-items">
-        <Link to={"/homepage"}>
+        <Link to={"/homepage/" + props.id}>
           <img className="img-responsive" src={props.avatar} alt="author" />
         </Link>
         <div className="author-date">
@@ -45,7 +45,6 @@ function PostInfo(props) {
       )
     )
   }
-
 }
 
 function PostContent(props) {
@@ -86,6 +85,7 @@ function PostBottom(props){
           </use></svg>
           <span>{props.likes} Likes</span>
         </a>
+        
         <div className="comments-shared">
           <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(props.status_id) }}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>

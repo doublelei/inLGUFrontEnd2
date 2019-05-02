@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import GlobalStore from '../store/store_global.js'
 function Section(props) {
     return (<div className="profile-section">
@@ -8,7 +8,7 @@ function Section(props) {
             <div className="col-lg-5 col-md-5 ">
                 <ul className="profile-menu">
                     <li>
-                        <Link to={"/homepage"}>Homepage</Link>
+                        <Link to={"/homepage/" + GlobalStore.accounts.id}>Homepage</Link>
                     </li>
                     <li>
                         <Link to="/mypost">MyPosts</Link>
@@ -34,8 +34,8 @@ function Section(props) {
 
 function Author(props) {
     return (<div className="top-header-author">
-    <Link to={"/homepage"}>
-            <img className="author-thumb img-responsive" src={props.avatar} alt="author" style={{width:"100px", height:"100px"}}/>
+        <Link to={"/homepage/" + props.id}>
+            <img className="author-thumb img-responsive" src={props.avatar} alt="author" style={{ width: "100px", height: "100px" }} />
         </Link>
         <div className="author-content">
             <a href="#" className="h4 author-name">{props.username}</a>

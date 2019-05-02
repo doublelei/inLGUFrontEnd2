@@ -83,7 +83,7 @@ function Author(props) {
     return (
         <div className="author-page author vcard inline-items more">
             <div className="author-thumb">
-                <Link to={"/homepage"}>
+            <Link to={"/homepage/" + props.id}>
                     <img className="avatar img-responsive" alt="author" src={props.avatar} style={{ width: "36px", height: "36px" }} />
                 </Link>
                 <span className="icon-status online"></span>

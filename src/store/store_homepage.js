@@ -14,24 +14,7 @@ class HomepageStore {
         timestamp: Date.parse(new Date())
     };
 
-    status_list = [{
-        "id":'',
-        "url":'',
-        "account":'Santa',
-        "in_reply_to_id":'',
-        "in_repley_to_account_id":'',
-        "language":'',
-        "content": 'Merry ChristmasMerry ChristmasMerry ChristmasMerry ChristmasMerry ChristmasMerry Christmas',
-        "created_at": '2019-01-01',
-        "replies_count":100,
-        "replies":[],
-        "likes_count": 100,
-        "media_attachments": '',
-        "tags": ["tag1", "tag2"],
-        "poll": false,
-        "liked": false,
-        "pinned": false
-        }];
+    status_list = [];
 
     hot_tag = ["hot_tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag"];
     activity_feed = [{ "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }, { "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }];
@@ -72,7 +55,7 @@ class HomepageStore {
 
     collect_status = {
         status_id: '',
-        account_id:''
+        account_id: ''
     }
 
     collectStatus(status_id) {
@@ -112,16 +95,16 @@ class HomepageStore {
 
     timelinesPublic() {
         fetch('https://inlgu-api.rainbowsound.me/api/v1/timelines/public',
-        {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+            {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
             })
-        })
-        .then(resp => resp.json())
-        .then(repos => {this.status_list = repos.data})
-        .catch(ex => {console.error(ex); toast.error("Get Timeline Failed")})
+            .then(resp => resp.json())
+            .then(repos => { this.status_list = repos.data })
+            .catch(ex => { console.error(ex); toast.error("Get Timeline Failed") })
     };
 
     loadMoreTimelines() {
@@ -162,7 +145,8 @@ class HomepageStore {
                     'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             })
-            .then(function (res) { toast.success("Add Tag Succeed"); this.timelinesPublic() })
+            .then(function (res) { toast.success("Add Tag Succeed") })
+            .then(this.timelinesPublic())
             .catch(function (error) { toast.error("Add Tag Failed"); console.log('Add Tag Error:', error) })
     };
 
@@ -180,6 +164,7 @@ class HomepageStore {
                 })
             }).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Posted") })
+            .then(this.timelinesPublic())
             .catch(error => { console.error('Error:', error); toast.error("Posted failed") })
     };
 
@@ -197,6 +182,7 @@ class HomepageStore {
                 })
             })
             .then(function (res) { })
+            .then(this.timelinesPublic())
             .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
     };
 
@@ -212,9 +198,12 @@ class HomepageStore {
                     'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             }
-        ).then(res => res.json())
+        )
+            .then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Unliked") })
+            .then(this.timelinesPublic())
             .catch(error => { console.error('Error:', error); toast.error("Unliked failed") })
+
 
     };
 }

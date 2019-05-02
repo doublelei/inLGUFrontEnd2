@@ -21,7 +21,7 @@ ReactDOM.render(
         <Router >
             <Switch>
                 <Route exact path="/" component={Login} />
-                <Route path="/homepage" component={Homepage} />
+                <Route path="/homepage/:id" component={Homepage} />
                 <Route path="/profile/:id" component={Profile} />
                 <Route path="/follow" component={Follow} />
                 <Route path="/follower" component={Follower} />
