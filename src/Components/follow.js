@@ -7,8 +7,8 @@ import { observable, autorun, action, decorate } from "mobx";
 import { inject } from 'mobx-react';
 import { observer } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
-import {Link} from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
+import Store from '../store/stores.js'
 function Searchfriend(props) {
     return (
         <div className="ui-block responsive-flex">
@@ -33,18 +33,18 @@ function Friends(props) {
         <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div className="ui-block">
                 <div className="friend-item">
-                    <div className="friend-item-content" style={{paddingBottom:"0",  paddingTop:"10px"}}>
+                    <div className="friend-item-content" style={{ paddingBottom: "0", paddingTop: "10px" }}>
                         <div className="friend-avatar">
                             <div className="author-thumb">
                                 <Link to={"/otherpage/" + props.id}>
-                                <img className="img-responsive" src={props.avatar} alt="author" style={{width:"98px", height:"98px"}}/>
+                                    <img className="img-responsive" src={props.avatar} alt="author" style={{ width: "98px", height: "98px" }} />
                                 </Link>
                             </div>
                             <div className="author-content">
                                 <a href="#" className="h5 author-name">{props.username}</a>
                             </div>
                         </div>
-                        <div className="friend-count" style={{marginBottom:"20px"}}>
+                        <div className="friend-count" style={{ marginBottom: "20px" }}>
                             <a href="#" className="friend-count-item">
                                 <div className="h6">{props.following_count}</div>
                                 <div className="title">Follows</div>
@@ -67,8 +67,9 @@ function Friends(props) {
 class _Follow extends Component {
 
     componentWillMount() {
-        // this.props.FollowStore.getfollowing();
+        Store.FollowStore.getfollowing();
     }
+
     render() {
         return (
             <div>
@@ -101,7 +102,7 @@ class _Follow extends Component {
 
 class _Follower extends Component {
     componentWillMount() {
-        // this.props.FollowerStore.getfollowing();
+        Store.FollowerStore.getfollower();
     }
     render() {
         return (

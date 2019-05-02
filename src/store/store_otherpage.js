@@ -36,16 +36,6 @@ class otherPageStore {
     };
 
     accounts = {
-        "id": "177ceaca-7a91-40fa-a01c-6d09f98c7890",
-        "username": "leo",
-        "display_name": "",
-        "created_at": "",
-        "bio": "a simple biography",
-        "followers_count": "34",
-        "following_count": "56",
-        "statuses_count": "55",
-        "url": "",
-        "avatar": "/img/author-page.jpg ",
     };
 
     getAccounts(id) {
@@ -103,7 +93,7 @@ class otherPageStore {
             })
         })
         .then(resp => resp.json())
-        .then(repos => {this.status_list = repos.data})
+        .then(repos => {this.status_list = repos.data; console.log(repos.data)})
         .catch(ex => {console.error(ex); toast.error("Get Timeline Failed")})
     };
 
@@ -174,7 +164,20 @@ class otherPageStore {
         ).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Unliked") })
             .catch(error => { console.error('Error:', error); toast.error("Unliked failed") })
+    };
 
+    follow() {
+        fetch(this.basicURL + "/accounts/" + this.accounts.id + "/follow",
+            {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
+            }
+        ).then(res => res.json())
+            .then(response => { console.log('Success:', response); toast.success("Follow") })
+            .catch(error => { console.error('Error:', error); toast.error("Follow failed") })
     };
 }
 
