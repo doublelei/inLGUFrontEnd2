@@ -33,6 +33,8 @@ class HomepageStore {
         reply_to_status_id: ''
     };
 
+    attachment = {file:'', status_id:''};
+
     like = {
         status_id: '',
         account_id: ''
@@ -107,6 +109,18 @@ class HomepageStore {
             .catch(ex => { console.error(ex); toast.error("Get Timeline Failed") })
     };
 
+    uploadAttachment() {
+        fetch(GlobalStore.basicURL + "/attachments/add",
+            {
+                method: 'POST',
+                body: JSON.stringify(this.attachment),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
+            })
+    }
+
     loadMoreTimelines() {
         fetch(GlobalStore.basicURL + "/timelines/public", {
             mode: "no-cors",
@@ -163,6 +177,7 @@ class HomepageStore {
                     'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             }).then(res => res.json())
+            .then(res => this.attachment.status_id = res.data[0].id)
             .then(response => { console.log('Success:', response); toast.success("Posted") })
             .then(this.timelinesPublic())
             .catch(error => { console.error('Error:', error); toast.error("Posted failed") })

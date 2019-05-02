@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import ReactDropZone from 'react-dropzone'
+import Stores from '../store/stores.js';
 import $ from 'jquery'
 export default class DropzoneComp extends React.Component {
     constructor(props) {
@@ -22,6 +23,7 @@ export default class DropzoneComp extends React.Component {
         this.setState({
             files,
         })
+        Stores.HomepageStore.attachment.file = URL.createObjectURL(files[0])
         // $("#upload").attr('src', URL.createObjectURL(files[0]))
     }
     render() {
