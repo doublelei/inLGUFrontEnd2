@@ -191,9 +191,9 @@ function CommentWithoutChildren(props) {
 }
 
 function Comment(props) {
-  return (
-    <CommentWithoutChildren {...props}></CommentWithoutChildren>
-  )
+  // return (
+  //   <CommentWithoutChildren {...props}></CommentWithoutChildren>
+  // )
 
   if (props.replies_count > 0) {
     return (
@@ -227,7 +227,7 @@ function CommentForm(props) {
       <div className="post__author author vcard inline-items">
         <img className="img-responsive" alt="author" src={props.avatar} />
         <div className="form-group with-icon-right is-empty">
-          <textarea id="new-comment" className="form-control" placeholder=" " />
+          <textarea id="new-comment" className="form-control" placeholder="" />
           <span className="material-input" /></div>
       </div>
       <button className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#new-comment').val(), false); $('#new-comment').val("")}}>Comment</button>
