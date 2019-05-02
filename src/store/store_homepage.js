@@ -82,13 +82,17 @@ class HomepageStore {
     };
 
     timelinesPublic() {
-        fetch('https://inlgu-api.rainbowsound.me/api/v1/timelines/public').then(
-            resp => resp.json()
-        ).then(repos => {
-            this.status_list = repos.data
-        }).catch(ex => {
-            console.error(ex);
+        fetch('https://inlgu-api.rainbowsound.me/api/v1/timelines/public',
+        {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+            })
         })
+        .then(resp => resp.json())
+        .then(repos => {this.status_list = repos.data})
+        .catch(ex => {console.error(ex); toast.error("Get Timeline Failed")})
     };
 
     loadMoreTimelines() {
@@ -167,13 +171,16 @@ class HomepageStore {
             .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
     };
 
-    undoLikeStatus() {
+    undoLikeStatus(status_id) {
+        this.like.status_id = status_id;
+        this.like.account_id = GlobalStore.accounts.id;
         fetch(this.basicURL + "/status/" + this.like_status + "/undo_like",
             {
                 method: 'POST',
                 body: JSON.stringify(this.undo_like),
                 headers: new Headers({
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
                 })
             }
         ).then(res => res.json())
