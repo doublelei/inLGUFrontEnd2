@@ -51,7 +51,7 @@ class PostBottom extends Component {
       )
     }else{
       likeButton = (
-        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.likeStatus(this.status_id)}}>
+        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.undoLikeStatus(this.status_id)}}>
           <svg id="heart-icon" className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
           </use></svg>
           <span>{this.likes} Likes</span>
