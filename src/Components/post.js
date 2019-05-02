@@ -79,7 +79,7 @@ function PostBottom(props) {
           <span>{props.likes} Liked</span>
         </a>
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" >
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -96,7 +96,7 @@ function PostBottom(props) {
         </a>
 
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" >
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID(){Stores.HomepageStore.new_status.reply_to_status_id = props.status_id}}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -125,7 +125,7 @@ function PostSideButton(props) {
 function Tag(props) {
   const tags = props.tags.map((tag, index) =>
     <a key={index}>
-      <span className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} onClick={function click() { Stores.HomepageStore.showStatusUnderTag(tag.name) }}>
+      <span href="" className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} onClick={function clickTag() { Stores.HomepageStore.getAllStatusIn(tag.name) }}>
         <font color="#F8F8F8">{tag.name}</font>
       </span>
     </a>);
@@ -230,7 +230,7 @@ function CommentForm(props) {
           <textarea id="new-comment" className="form-control" placeholder=" " />
           <span className="material-input" /></div>
       </div>
-      <a className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.newComment($('#new-comment')); toast.success("comment posted!") }}>Comment</a>
+      <a className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#new-comment').val(), false)}}>Comment</a>
 
     </form>
   )

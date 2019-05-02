@@ -144,12 +144,20 @@ class HomepageStore {
             .catch(function (error) { toast.error("Get Hot Tags Failed"); console.log('Get Hot Tag Error:', error) })
     };
 
+    getAllStatusIn(tag_name){
+        fetch(GlobalStore.basicURL + '/timelines/tag/' + tag_name,
+            {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
+            })
+            .then(resp => resp.json())
+            .then(repos => { this.status_list = repos.data })
+            .catch(ex => { console.error(ex); toast.error("Get Timeline by Tag Failed") })
+    }
 
-    showStatusUnderTag(tag) {
-        fetch(GlobalStore.basicURL + "/timelines/tag/" + tag)
-            .then(function (res) { this.status_list = res })
-            .catch(function (error) { toast.error("Get Status by Tags Failed"); console.log('Get Status by Tag Error:', error) })
-    };
 
     // tag_id will be set when the + button is clicked
     tagStatus(tag_name) {
@@ -242,11 +250,12 @@ decorate(HomepageStore, {
     show_status_under_tag: observable,
     add_tag: observable,
 
+
     collectStatus: action,
     deletStatus: action,
     timelinesPublic: action,
     getHotTags: action,
-    showStatusUnderTag: action,
+    getAllStatusIn: action,
     tagStatus: action,
     postStatus: action,
     likeStatus: action,

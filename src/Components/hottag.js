@@ -5,7 +5,7 @@ import { observer, inject } from "mobx-react";
 function Tag(props) {
     console.log(Stores.HomepageStore.hot_tag)
     const tags = Stores.HomepageStore.hot_tag.map((tag, index) =>
-        <span key={index} className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} ><font color="#F8F8F8">{tag.name}</font>
+        <span href="" key={index} className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} onClick={function clickTag() { Stores.HomepageStore.getAllStatusIn(tag.name) }}><font color="#F8F8F8">{tag.name}</font>
         </span>);
     return (
         <div style={{ margin: "2px 2px 2px 2px" }}>
