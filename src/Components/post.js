@@ -105,13 +105,8 @@ function PostSideButton(props) {
       <a href="#" className="btn btn-control">
         <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
-<<<<<<< HEAD
       <a className="btn btn-control" onClick={ function deleteStatur(){Stores.HomepageStore.deletStatus(props.status_id); toast.warn("Deleted")}}>
         <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="Delete"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
-=======
-      <a className="btn btn-control" onClick={function deleteStatur() { Stores.HomepageStore.deletStatus(props.status_id); toast.warn("Deleted") }}>
-        <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="FAV PAGE"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
->>>>>>> 4a728f93ad6caf1767809385adb5d6eadaf563a4
       </a>
     </div>
   )
