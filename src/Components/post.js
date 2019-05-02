@@ -70,7 +70,7 @@ function PostBottom(props){
           <span>{props.likes} Liked</span>
         </a>
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(props.status_id) }}>
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" >
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -87,7 +87,7 @@ function PostBottom(props){
         </a>
         
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(props.status_id) }}>
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" >
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -221,7 +221,7 @@ function CommentForm(props) {
           <textarea id="new-comment" className="form-control" placeholder=" " />
           <span className="material-input" /></div>
       </div>
-      <a className="btn btn-primary" onClick={function newComment() { Stores.HomepageStore.newComment($('#new-comment')); toast.success("comment posted!") }}>Comment</a>
+      <a className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.newComment($('#new-comment')); toast.success("comment posted!") }}>Comment</a>
 
     </form>
   )
