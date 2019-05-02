@@ -28,11 +28,6 @@ function LoadMore(props) {
     )
 }
 
-const posts = observable([
-    { author: "Leo", time: "2018-08-21", content: "wwwwwwwwwww", likes: "12", comments: "21" },
-    { author: "Brando", time: "2028-08-21", content: "kkkkkkkkkkkkk", likes: "112", comments: "213" }
-])
-
 class _Homepage extends Component {
     componentDidMount() {
         GlobalStore.accounts.id = this.props.match.params.id;

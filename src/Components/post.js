@@ -241,7 +241,7 @@ class _Post extends Component {
           <Tag tags={this.props.tags} status_id={this.props.id} />
         </article>
         <div className="collapse" id="Comments">
-          {/* <CommentList {...this.props} /> */}
+          <CommentList {...this.props} />
           <MoreComment />
           <CommentForm avatar={this.props.account.avatar} />
         </div>
