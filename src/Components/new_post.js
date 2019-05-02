@@ -4,7 +4,7 @@ import $ from 'jquery'
 import Stores from '../store/stores.js';
 import { toast } from 'react-toastify';
 import GlobalStore from '../store/store_global.js'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function NewPostAuthorThumb(props) {
     return (
@@ -40,7 +40,7 @@ function NewPostButton(props) {
                 <svg xmlns="http://www.w3.org/2000/svg" className="olymp-small-pin-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-small-pin-icon" /></svg>
             </a>
             <Link to={"/homepage/" + GlobalStore.accounts.id}>
-            <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus() { Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val()); $('#status_content').val("") }}>Post</button>
+                <button type="button" className="btn btn-primary btn-md-2" onClick={function postStatus() { Stores.HomepageStore.postStatus($('#status_content').val(), $('#status_anonymous').val()); $('#status_content').val("") }}>Post</button>
             </Link>
             <div className="checkbox" style={{ display: "inline", padding: "5px 10px 0 0", verticalAlign: "middle", float: "right" }}>
                 <label>

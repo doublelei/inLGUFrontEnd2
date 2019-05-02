@@ -68,6 +68,7 @@ class Poll extends Component {
         for (var i = 1; i <= this.state.num; i++) {
             result.push($('#option' + i.toString()).val())
         }
+        Stores.HomepageStore.poll = result
         console.log(result)
     }
     render() {

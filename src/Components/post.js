@@ -137,7 +137,7 @@ function Tag(props) {
 }
 
 function CommentWithChildren(props) {
-  const children = props.chidren.map((child, index) => <Comment key={index} {...child}></Comment>)
+  const children = props.replies.map((child, index) => <Comment key={index} {...child}></Comment>)
   return (
     <li className="has-children">
       <div className="post__author author vcard inline-items">
@@ -191,9 +191,9 @@ function CommentWithoutChildren(props) {
 }
 
 function Comment(props) {
-  return (
-    <CommentWithoutChildren {...props}></CommentWithoutChildren>
-  )
+  // return (
+  //   <CommentWithoutChildren {...props}></CommentWithoutChildren>
+  // )
 
   if (props.replies_count > 0) {
     return (
