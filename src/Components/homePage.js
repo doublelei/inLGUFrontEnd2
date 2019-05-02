@@ -35,6 +35,7 @@ const posts = observable([
 
 class _Homepage extends Component {
     componentDidMount() {
+        console.log(GlobalStore.accounts)
         this.props.HomepageStore.timelinesPublic();
         console.log(this.props.HomepageStore.status_list)
         this.props.HomepageStore.getHotTags();

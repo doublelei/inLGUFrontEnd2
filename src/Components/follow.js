@@ -67,7 +67,6 @@ function Friends(props) {
 class _Follow extends Component {
 
     componentWillMount() {
-        GlobalStore.getCurrentUser();
         // this.props.FollowStore.getfollowing();
     }
     render() {
@@ -102,7 +101,6 @@ class _Follow extends Component {
 
 class _Follower extends Component {
     componentWillMount() {
-        GlobalStore.getCurrentUser();
         // this.props.FollowerStore.getfollowing();
     }
     render() {
