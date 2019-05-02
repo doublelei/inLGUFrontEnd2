@@ -14,7 +14,24 @@ class HomepageStore {
         timestamp: Date.parse(new Date())
     };
 
-    status_list = [];
+    status_list = [{
+        "id":'',
+        "url":'',
+        "account":'Santa',
+        "in_reply_to_id":'',
+        "in_repley_to_account_id":'',
+        "language":'',
+        "content": 'Merry ChristmasMerry ChristmasMerry ChristmasMerry ChristmasMerry ChristmasMerry Christmas',
+        "created_at": '2019-01-01',
+        "replies_count":100,
+        "replies":[],
+        "likes_count": 100,
+        "media_attachments": '',
+        "tags": ["tag1", "tag2"],
+        "poll": false,
+        "liked": false,
+        "pinned": false
+        }];
 
     hot_tag = ["hot_tag1", "tag2", "tag3", "tag4", "tag5", "tag6", "tag7", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag", "very long tag"];
     activity_feed = [{ "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }, { "avatar": "../../public/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }];
@@ -53,18 +70,30 @@ class HomepageStore {
         tag_name: ''
     };
 
-    getComment(status_id) {
-        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/context").then(
-            resp => resp.json()
-        ).then(repos => {
-            return repos.descendants
-        }).catch(ex => {
-            console.error(ex);
-        })
+    collect_status = {
+        status_id: '',
+        account_id:''
     }
 
+    collectStatus(status_id) {
+        this.collect_status.status_id = status_id;
+        this.collect_status.account_id = GlobalStore.accounts.id
+        fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/collect",
+            {
+                method: 'POST',
+                body: JSON.stringify(this.collect_status),
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                })
+            })
+            .then(function (res) { toast.success("Status Collected") })
+            .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
+
+    };
+
     deletStatus(status_id) {
-        this.delete.status_id = status_id;
+        this.delete_status.status_id = status_id;
         this.delete_status.account_id = GlobalStore.accounts.id
         fetch(GlobalStore.basicURL + "/statuses/" + status_id + "/delete",
             {
@@ -201,6 +230,8 @@ decorate(HomepageStore, {
     new_status: observable,
     show_status_under_tag: observable,
     add_tag: observable,
+
+    collectStatus: action,
     deletStatus: action,
     timelinesPublic: action,
     getHotTags: action,

@@ -7,6 +7,7 @@ import { observable, autorun, action, decorate } from "mobx";
 import { inject } from 'mobx-react';
 import { observer } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
+import Stores from '../store/stores.js'
 
 function LoadMore(props) {
     return (
@@ -20,8 +21,7 @@ function LoadMore(props) {
 
 class _MyPost extends Component {
     componentWillMount() {
-        GlobalStore.getCurrentUser();
-        // this.props.MyPostStore.getmypost();
+        Stores.MyPostStore.getMyPost();
     }
     render() {
         return (
@@ -47,8 +47,7 @@ class _MyPost extends Component {
 
 class _Collections extends Component {
     componentWillMount() {
-        GlobalStore.getCurrentUser();
-        // this.props.CollectionStore.getcollection();
+        Stores.CollectionStore.getCollection();
     }
     render() {
         return (
