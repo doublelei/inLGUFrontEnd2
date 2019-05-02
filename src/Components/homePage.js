@@ -45,7 +45,7 @@ class _Homepage extends Component {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer"></div>
+                <div className="header-spacer" style={{height:"200px"}}></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">

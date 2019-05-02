@@ -5,23 +5,47 @@ import $ from 'jquery'
 import { toast } from 'react-toastify';
 import { observable, action, decorate } from 'mobx';
 import { observer, inject } from "mobx-react";
-
+import GlobalStore from '../store/store_global.js'
+import {Link} from 'react-router-dom'
 var comments = observable([])
 
 function PostInfo(props) {
-  return (
-    <div className="post__author author vcard inline-items">
-      <img className="img-responsive" src={props.avatar} alt="author" />
-      <div className="author-date">
-        <a className="h6 post__author-name fn" href="#">{props.username}</a>
-        <div className="post__date">
-          <time className="published" dateTime="2004-07-24T18:18">
-            {props.created_at}
-          </time>
+  if (props.id == GlobalStore.accounts.id) {
+    return (
+      <div className="post__author author vcard inline-items">
+        <Link to={"/homepage/" + props.id}>
+          <img className="img-responsive" src={props.avatar} alt="author" />
+        </Link>
+        <div className="author-date">
+          <a className="h6 post__author-name fn" href="#">{props.username}</a>
+          <div className="post__date">
+            <time className="published" dateTime="2004-07-24T18:18">
+              {props.created_at}
+            </time>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      (
+        <div className="post__author author vcard inline-items">
+          <Link to={"/otherpage/" + props.id}>
+            <img className="img-responsive" src={props.avatar} alt="author" />
+          </Link>
+          <div className="author-date">
+            <a className="h6 post__author-name fn" href="#">{props.username}</a>
+            <div className="post__date">
+              <time className="published" dateTime="2004-07-24T18:18">
+                {props.created_at}
+              </time>
+            </div>
+          </div>
+        </div>
+      )
+    )
+  }
+
 }
 
 function PostContent(props) {
@@ -39,19 +63,19 @@ function PostContent(props) {
 
 
 class PostBottom extends Component {
-  render(){
+  render() {
     let likeButton
-    if (this.liked){
+    if (this.liked) {
       likeButton = (
-        <a id="heart-text" className="post-add-icon inline-items" style={{color: "#ff5e3a"}} onClick={function like_status() { Stores.HomepageStore.likeStatus(this.status_id)}}>
-          <svg id="heart-icon" className="olymp-heart-icon" style = {{fill: "#ff5e3a"}}><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
+        <a id="heart-text" className="post-add-icon inline-items" style={{ color: "#ff5e3a" }} onClick={function like_status() { Stores.HomepageStore.likeStatus(this.status_id) }}>
+          <svg id="heart-icon" className="olymp-heart-icon" style={{ fill: "#ff5e3a" }}><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
           </use></svg>
           <span>{this.likes} Liked</span>
         </a>
       )
-    }else{
+    } else {
       likeButton = (
-        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.undoLikeStatus(this.status_id)}}>
+        <a id="heart-text" className="post-add-icon inline-items" onClick={function like_status() { Stores.HomepageStore.undoLikeStatus(this.status_id) }}>
           <svg id="heart-icon" className="olymp-heart-icon"><use xlinkHref="/icons/icons.svg#olymp-heart-icon">
           </use></svg>
           <span>{this.likes} Likes</span>
@@ -60,9 +84,9 @@ class PostBottom extends Component {
     }
     return (
       <div className="post-additional-info inline-items">
-        { likeButton }
+        {likeButton}
         <div className="comments-shared">
-          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments(){comments = Stores.HomepageStore.getComment(this.status_id)}}>
+          <a data-toggle="collapse" href="#Comments" className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function get_comments() { comments = Stores.HomepageStore.getComment(this.status_id) }}>
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{this.comments} Comments</span>
           </a>
@@ -81,7 +105,7 @@ function PostSideButton(props) {
       <a href="#" className="btn btn-control">
         <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
-      <a className="btn btn-control" onClick={ function deleteStatur(){Stores.HomepageStore.deletStatus(props.status_id); toast.warn("Deleted")}}>
+      <a className="btn btn-control" onClick={function deleteStatur() { Stores.HomepageStore.deletStatus(props.status_id); toast.warn("Deleted") }}>
         <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="FAV PAGE"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
       </a>
     </div>
@@ -91,14 +115,14 @@ function PostSideButton(props) {
 function Tag(props) {
   const tags = props.tags.map((tag, index) =>
     <a key={index}>
-      <span className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} onClick={function click(){Stores.HomepageStore.showStatusUnderTag(tag.name)}}>
+      <span className="badge badge-pill badge-success" style={{ margin: "0px 2px 2px 2px", fontWeight: "400", fontSize: "100%" }} onClick={function click() { Stores.HomepageStore.showStatusUnderTag(tag.name) }}>
         <font color="#F8F8F8">{tag.name}</font>
       </span>
     </a>);
   return (
     <div style={{ margin: "2px 2px 2px 2px" }}>
       {tags}
-      <button type="button" className="btn badge-pill badge-success" data-toggle="modal" data-target="#add-tag" style={{ marginBottom: "0", padding: ".15rem .4rem" }} onClick={function setStatusID(){Stores.HomepageStore.add_tag.status_id = props.status_id}}>+</button>
+      <button type="button" className="btn badge-pill badge-success" data-toggle="modal" data-target="#add-tag" style={{ marginBottom: "0", padding: ".15rem .4rem" }} onClick={function setStatusID() { Stores.HomepageStore.add_tag.status_id = props.status_id }}>+</button>
     </div>)
 }
 
@@ -206,9 +230,9 @@ class _Post extends Component {
   render() {
     return (
       <div className="ui-block">
-      {console.log(this.props)}
+        {console.log(this.props)}
         <article className="hentry post has-post-thumbnail">
-          <PostInfo avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
+          <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
           <PostContent content={this.props.content} img={this.props.img} />
           <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
           <PostSideButton status_id={this.props.id} />

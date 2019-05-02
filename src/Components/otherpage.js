@@ -1,19 +1,12 @@
 'use strict';
 import React, { Component } from 'react';
 import NavBar from './nav.js';
-import NewPost from './new_post.js'
 import Post from './post.js';
-import Poll from './poll.js';
-import Modals from './modal.js'
-import Weather from './weather.js'
-import Calendar from './calendar.js'
-import Head from './head.js'
-import Hottags from "./hottag.js"
-import ActivityFeed from "./activityfeed.js"
 import { observable, autorun, action, decorate } from "mobx";
 import { observer, inject } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
 import $ from 'jquery'
+import OtherPageStore from '../store/store_otherpage.js'
 
 function LoadMore(props) {
     return (
@@ -28,59 +21,45 @@ function LoadMore(props) {
     )
 }
 
-const posts = observable([
-    { author: "Leo", time: "2018-08-21", content: "wwwwwwwwwww", likes: "12", comments: "21" },
-    { author: "Brando", time: "2028-08-21", content: "kkkkkkkkkkkkk", likes: "112", comments: "213" }
-])
-
-class _Homepage extends Component {
+class _OtherPage extends Component {
     componentDidMount() {
-        GlobalStore.accounts.id = this.props.match.params.id;
-        GlobalStore.getCurrentUser();
-        this.props.HomepageStore.timelinesPublic();
-        this.props.HomepageStore.getHotTags();
+        OtherPageStore.getAccounts(this.props.match.params.id);
+        console.log(OtherPageStore.accounts)
+        OtherPageStore.timelinesAccounts();
     }
     render() {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer"></div>
+                <div className="header-spacer" style={{height:"200px"}}></div>
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <Head {...GlobalStore.accounts} />
+                            <div className="ui-block">
+                                <div className="top-header">
+                                    <div className="top-header-author">
+                                        <a href="#" className="author-thumb">
+                                            <img className="img-responsive" src={OtherPageStore.accounts.avatar} alt="author" style={{ width: "132px", height: "132px" }} />
+                                        </a>
+                                        <div className="author-content">
+                                            <a href="#" className="h4 author-name">{OtherPageStore.accounts.username}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div> {GlobalStore.test} </div>
                 <div className="container">
                     <div className="row">
-                        <main className="col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-xs-12">
-                            <NewPost {...this.props} />
-                            <div id="newsfeed-items-grid">
-                                {this.props.HomepageStore.status_list.map((status, index) => <Post key={index} {...status} />)}
-                            </div>
-
-                            {/* <LoadMore lastStatus={this.props.HomepageStore.status_list[this.props.HomepageStore.status_list.length - 1]}/> */}
-                        </main>
-
-                        <aside className="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-xs-12">
-                            <Weather info={this.props.HomepageStore} />
-                            <Calendar />
-                        </aside>
-
-                        <aside className="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
-                            <Hottags hot_tag={this.props.HomepageStore.hot_tag} />
-                            <ActivityFeed {...this.props.HomepageStore} />
-                        </aside>
+                        {OtherPageStore.status_list.map((status, index) => <div key={index} className="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12"><Post {...status} /></div>)}
                     </div>
                 </div>
-                <Modals />
             </div>
         );
     }
 }
 
-const Homepage = inject('HomepageStore')(observer(_Homepage))
+const OtherPage = observer(_OtherPage)
 
-export default Homepage;
+export default OtherPage;

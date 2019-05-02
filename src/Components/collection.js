@@ -23,7 +23,6 @@ class _MyPost extends Component {
         GlobalStore.getCurrentUser();
         // this.props.MyPostStore.getmypost();
     }
-
     render() {
         return (
             <div>

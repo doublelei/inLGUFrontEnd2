@@ -1,6 +1,5 @@
 import { observable, action, decorate } from 'mobx';
 import { toast } from 'react-toastify';
-import { Base64 } from 'js-base64';
 
 class globalStore {
     basicURL = "https://inlgu-api.rainbowsound.me/api/v1";

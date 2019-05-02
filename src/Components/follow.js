@@ -7,6 +7,7 @@ import { observable, autorun, action, decorate } from "mobx";
 import { inject } from 'mobx-react';
 import { observer } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
+import {Link} from 'react-router-dom'
 
 function Searchfriend(props) {
     return (
@@ -33,10 +34,11 @@ function Friends(props) {
             <div className="ui-block">
                 <div className="friend-item">
                     <div className="friend-item-content">
-
                         <div className="friend-avatar">
                             <div className="author-thumb">
+                                <Link to={"/otherpage/" + props.id}>
                                 <img className="img-responsive" src={props.avatar} alt="author" style={{width:"98px", height:"98px"}}/>
+                                </Link>
                             </div>
                             <div className="author-content">
                                 <a href="#" className="h5 author-name">{props.username}</a>

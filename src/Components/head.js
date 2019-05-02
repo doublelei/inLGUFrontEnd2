@@ -34,9 +34,10 @@ function Section(props) {
 
 function Author(props) {
     return (<div className="top-header-author">
-        <a href="#" className="author-thumb">
-            <img className="img-responsive" src={props.avatar} alt="author" style={{width:"132px", height:"132px"}}/>
-        </a>
+    <Link to={"/homepage/" + props.id}>
+
+            <img className="author-thumb img-responsive" src={props.avatar} alt="author" style={{width:"100px", height:"100px"}}/>
+        </Link>
         <div className="author-content">
             <a href="#" className="h4 author-name">{props.username}</a>
         </div>
