@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { observer } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
 import { Link } from 'react-router-dom'
-import tz from 'moment-timezone'
+import moment from "moment";
 
 function PostInfo(props) {
   if (props.id == GlobalStore.accounts.id) {
@@ -19,7 +19,7 @@ function PostInfo(props) {
           <a className="h6 post__author-name fn" href="#">{props.username}</a>
           <div className="post__date">
             <time className="published">
-              { tz.ToLocalTime(props.created_at) }
+              { moment(props.created_at).fromNow() }
             </time>
           </div>
         </div>
@@ -36,7 +36,7 @@ function PostInfo(props) {
             <a className="h6 post__author-name fn" href="#">{props.username}</a>
             <div className="post__date">
               <time className="published">
-                {props.created_at}
+                {moment(props.created_at).fromNow()}
               </time>
             </div>
           </div>
@@ -146,7 +146,7 @@ function CommentWithChildren(props) {
           <a className="h6 post__author-name fn" href="02-ProfilePage.html">{props.account.username}</a>
           <div className="post__date">
             <time className="published">
-              {props.created_at}
+              {moment(props.created_at).fromNow()}
             </time>
           </div>
         </div>
@@ -176,7 +176,7 @@ function CommentWithoutChildren(props) {
           <a className="h6 post__author-name fn" href="02-ProfilePage.html">{props.account.username}</a>
           <div className="post__date">
             <time className="published">
-              {props.created_at}
+              {moment(props.created_at).fromNow()}
             </time>
           </div>
         </div>
@@ -291,7 +291,7 @@ class _Post extends Component {
       if (this.props.poll != null) {
         return (<div className="ui-block">
           <article className="hentry post has-post-thumbnail">
-            <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
+            <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.moment(props.created_at).fromNow()} />
             <ul className="widget w-poll">
               <p>
                 {this.props.content}
@@ -314,7 +314,7 @@ class _Post extends Component {
           <div className="ui-block">
             {console.log(this.props.liked)}
             <article className="hentry post has-post-thumbnail">
-              <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.props.created_at} />
+              <PostInfo id={this.props.account.id} avatar={this.props.account.avatar} username={this.props.account.username} created_at={this.moment(props.created_at).fromNow()} />
               <PostContent content={this.props.content} img={this.props.img} />
               <PostBottom likes={this.props.likes_count} comments={this.props.replies_count} status_id={this.props.id} liked={this.props.liked} />
               <PostSideButton status_id={this.props.id} username={this.props.account.username}/>
