@@ -15,7 +15,7 @@ function PostInfo(props) {
           <img className="img-responsive" src={props.avatar} alt="author" />
         </Link>
         <div className="author-date">
-          <a className="h6 post__author-name fn" href="#">{props.username}</a>
+          <a className="h6 post__author-name fn" href="">{props.username}</a>
           <div className="post__date">
             <time className="published">
               { props.created_at }
@@ -32,7 +32,7 @@ function PostInfo(props) {
             <img className="img-responsive" src={props.avatar} alt="author" />
           </Link>
           <div className="author-date">
-            <a className="h6 post__author-name fn" href="#">{props.username}</a>
+            <a className="h6 post__author-name fn" href="">{props.username}</a>
             <div className="post__date">
               <time className="published">
                 {props.created_at}
@@ -57,7 +57,7 @@ function PostContent(props) {
   } else {
     return (
       <div>
-        <a href="#" data-target="#post-view-photo" data-toggle="modal">
+        <a href="" data-target="#post-view-photo" data-toggle="modal">
           <img className="img-responsive" style={{ marginRight: "1rem" }} className="rounded float-left" src={props.img} alt="Pic Loading Failed" />
         </a>
         <p>
@@ -149,10 +149,10 @@ function CommentWithChildren(props) {
             </time>
           </div>
         </div>
-        <a className="more" href="#"><svg xmlns="http://www.w3.org/2000/svg" className="olymp-three-dots-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-three-dots-icon" /></svg></a>
+        <a className="more" href=""><svg xmlns="http://www.w3.org/2000/svg" className="olymp-three-dots-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-three-dots-icon" /></svg></a>
       </div>
       <p>{props.content}</p>
-      <a className="post-add-icon inline-items" href="#">
+      <a className="post-add-icon inline-items" href="">
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
@@ -179,10 +179,10 @@ function CommentWithoutChildren(props) {
             </time>
           </div>
         </div>
-        <a className="more" href="#"><svg xmlns="http://www.w3.org/2000/svg" className="olymp-three-dots-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-three-dots-icon" /></svg></a>
+        <a className="more" href=""><svg xmlns="http://www.w3.org/2000/svg" className="olymp-three-dots-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-three-dots-icon" /></svg></a>
       </div>
       <p>{props.content}</p>
-      <a className="post-add-icon inline-items" href="#">
+      <a className="post-add-icon inline-items" href="">
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
