@@ -260,9 +260,8 @@ class HomepageStore {
                 })
             })
             .then(function (res) { })
-            .then(toast.warn("Deleted"))
             .then(this.timelinesPublic())
-            .catch(function (error) { toast.error("Like Status Failed"); console.log('List Status Error:', error) })
+            .catch(function (error) { toast.error("Delete Status Failed"); console.log('Delete Status Error:', error) })
 
     };
 
