@@ -4,6 +4,8 @@ import DropzoneComp from "./upload.js"
 import Stores from '../store/stores.js';
 import $ from 'jquery'
 import { toast } from 'react-toastify';
+import GlobalStore from '../store/store_global.js'
+import { Link } from 'react-router-dom'
 
 function PhotoUpload(props) {
     return (
@@ -98,6 +100,30 @@ class Poll extends Component {
             </div>);
     }
 }
+
+function CommentForm(props) {
+    return (
+        <div className="modal fade" id="commentform" aria-hidden="true" style={{ display: 'none', top: "30%", width: "30%", left: "35%" }}>
+            <div className="modal-dialog ui-block window-popup">
+                <a className="close icon-close" aria-label="Close" href="/" data-dismiss="modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="olymp-close-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-close-icon" /></svg>
+                </a>
+                <form className="comment-form inline-items">
+                    <div className="post__author author vcard inline-items">
+                        <img className="img-responsive" alt="author" src={GlobalStore.accounts.avatar} />
+                        <div className="form-group with-icon-right is-empty">
+                            <textarea id="commentforminput" className="form-control" placeholder="" />
+                            <span className="material-input" /></div>
+                    </div>
+
+                </form>
+                <Link to={"/homepage/" + GlobalStore.accounts.id}>
+                    <button type="button" className="btn btn-sm btn-primary" style={{width: "20%", left: "40%" }} onClick={function newComment() { Stores.HomepageStore.postStatus($('#commentforminput').val(), false); $('#commentforminput').val("") }}>Comment</button>
+                </Link>
+            </div>
+        </div>
+    )
+}
 class Modals extends Component {
     render() {
         return (
@@ -105,6 +131,7 @@ class Modals extends Component {
                 <PhotoUpload />
                 <AddTag />
                 <Poll />
+                <CommentForm />
             </div>
         );
     }
