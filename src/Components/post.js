@@ -112,7 +112,7 @@ function PostSideButton(props) {
         <svg className="olymp-star-icon" data-toggle="tooltip" data-placement="right" data-original-title="Collect Status"><use xlinkHref="/icons/icons.svg#olymp-star-icon"></use></svg>
       </a>
       <a className="btn btn-control">
-        <svg className="olymp-speech-balloon-icon" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.username + ": ")}}><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
+        <svg className="olymp-speech-balloon-icon" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id; $('#commentforminput').val("To @ " + props.username + ": ")}}><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
       </a>
       <a className="btn btn-control" onClick={function deleteStatur() { Stores.HomepageStore.deletStatus(props.status_id) }}>
         <svg className="olymp-little-delete" data-toggle="tooltip" data-placement="right" data-original-title="Delete"><use xlinkHref="/icons/icons.svg#olymp-little-delete"></use></svg>
@@ -156,7 +156,7 @@ function CommentWithChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.account.username + ": ")}}>
+      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id; $('#commentforminput').val("To @ " + props.account.username + ": ")}}>
         <span href="">Reply</span>
       </a>
       <ul className="children">
@@ -186,7 +186,7 @@ function CommentWithoutChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.account.username + ": ") }}>
+      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id; $('#commentforminput').val("To @ " + props.account.username + ": ") }}>
         <span href="">Reply</span>
       </a>
     </li>
@@ -206,7 +206,7 @@ function Comment(props) {
 }
 
 function CommentList(props) {
-  const comments = props.replies.map((comment, index) => <Comment key={index} fatherid={props.id} {...comment}></Comment>);
+  const comments = props.replies.map((comment, index) => <Comment key={index} {...comment}></Comment>);
   return (
     <ul className="comments-list">
       {comments}
@@ -214,27 +214,27 @@ function CommentList(props) {
   )
 }
 
-function MoreComment(props) {
-  return (
-    <a className="more-comments">View more comments <span>+</span></a>
-  )
-}
+// function MoreComment(props) {
+//   return (
+//     <a className="more-comments">View more comments <span>+</span></a>
+//   )
+// }
 
-function CommentForm(props) {
-  return (
-    <form className="comment-form inline-items">
-      <div className="post__author author vcard inline-items">
-        <img className="img-responsive" alt="author" src={props.avatar} />
-        <div className="form-group with-icon-right is-empty">
-          <textarea id={props.id} className="form-control" placeholder="" />
-          <span className="material-input" /></div>
-      </div>
-      <Link to={"/homepage/" + GlobalStore.accounts.id}>
-        <button type="button" className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#' + props.id).val(), false); $('#' + props.id).val("") }}>Comment</button>
-      </Link>
-    </form>
-  )
-}
+// function CommentForm(props) {
+//   return (
+//     <form className="comment-form inline-items">
+//       <div className="post__author author vcard inline-items">
+//         <img className="img-responsive" alt="author" src={props.avatar} />
+//         <div className="form-group with-icon-right is-empty">
+//           <textarea id={props.id} className="form-control" placeholder="" />
+//           <span className="material-input" /></div>
+//       </div>
+//       <Link to={"/homepage/" + GlobalStore.accounts.id}>
+//         <button type="button" className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#' + props.id).val(), false); $('#' + props.id).val("") }}>Comment</button>
+//       </Link>
+//     </form>
+//   )
+// }
 
 function Pollcontent(props) {
   if (props.voted) {
@@ -321,7 +321,7 @@ class _Post extends Component {
               <Tag tags={this.props.tags} status_id={this.props.id} />
             </article>
             <div className="collapse" id={this.props.id}>
-              <CommentList fatherid={this.props.id} {...this.props} />
+              <CommentList {...this.props} />
               {/* <MoreComment /> */}
               {/* <CommentForm id={this.props.id} avatar={this.props.account.avatar} /> */}
             </div>
