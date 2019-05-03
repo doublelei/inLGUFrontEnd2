@@ -118,7 +118,7 @@ function CommentForm(props) {
 
                 </form>
                 <Link to={"/homepage/" + GlobalStore.accounts.id}>
-                    <button type="button" className="btn btn-sm btn-primary" style={{width: "20%", left: "40%" }} onClick={function newComment() { Stores.HomepageStore.postStatus($('#commentforminput').val(), false); $('#commentforminput').val("") }}>Comment</button>
+                    <button type="button" data-dismiss="modal" className="btn btn-sm btn-primary" style={{width: "20%", left: "40%" }} onClick={function newComment() { Stores.HomepageStore.postStatus($('#commentforminput').val(), false); $('#commentforminput').val("") }}>Comment</button>
                 </Link>
             </div>
         </div>
