@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { observer } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
 import { Link } from 'react-router-dom'
+import tz from 'moment-timezone'
 
 function PostInfo(props) {
   if (props.id == GlobalStore.accounts.id) {
@@ -17,8 +18,8 @@ function PostInfo(props) {
         <div className="author-date">
           <a className="h6 post__author-name fn" href="#">{props.username}</a>
           <div className="post__date">
-            <time className="published" dateTime="2004-07-24T18:18">
-              {props.created_at}
+            <time className="published">
+              { tz.ToLocalTime(props.created_at) }
             </time>
           </div>
         </div>
@@ -34,7 +35,7 @@ function PostInfo(props) {
           <div className="author-date">
             <a className="h6 post__author-name fn" href="#">{props.username}</a>
             <div className="post__date">
-              <time className="published" dateTime="2004-07-24T18:18">
+              <time className="published">
                 {props.created_at}
               </time>
             </div>
@@ -145,7 +146,7 @@ function CommentWithChildren(props) {
         <div className="author-date">
           <a className="h6 post__author-name fn" href="02-ProfilePage.html">{props.account.username}</a>
           <div className="post__date">
-            <time className="published" dateTime="2004-07-24T18:18">
+            <time className="published">
               {props.created_at}
             </time>
           </div>
@@ -173,7 +174,7 @@ function CommentWithoutChildren(props) {
         <div className="author-date">
           <a className="h6 post__author-name fn" href="02-ProfilePage.html">{props.account.username}</a>
           <div className="post__date">
-            <time className="published" dateTime="2004-07-24T18:18">
+            <time className="published">
               {props.created_at}
             </time>
           </div>
