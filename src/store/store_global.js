@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 class globalStore {
     basicURL = "https://inlgu-api.rainbowsound.me/api/v1";
     // basicURL = "test";
-    notification = [{ "username": "Min Tian", "avatar": "/../../public/img/author-page.jpg", "time": "4 hours ago", "action": "commented" }, { "username": "Min Tian", "avatar": "/../../public/img/author-page.jpg ", "time": "4 hours ago", "action": "commented" }];
+    notification = [{ "username": "Min Tian", "avatar": "img/author-page.jpg", "time": "4 hours ago", "action": "commented" }, { "username": "Min Tian", "avatar": "img/author-page.jpg ", "time": "4 hours ago", "action": "commented" }];
     token = ""
     accounts = {
         "id": "177ceaca-7a91-40fa-a01c-6d09f98c7890",

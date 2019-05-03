@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { observer } from "mobx-react";
 import GlobalStore from '../store/store_global.js'
 import { Link } from 'react-router-dom'
-import tz from 'moment-timezone'
 
 function PostInfo(props) {
   if (props.id == GlobalStore.accounts.id) {
@@ -19,7 +18,7 @@ function PostInfo(props) {
           <a className="h6 post__author-name fn" href="#">{props.username}</a>
           <div className="post__date">
             <time className="published">
-              { tz.ToLocalTime(props.created_at) }
+              { props.created_at }
             </time>
           </div>
         </div>
@@ -79,7 +78,7 @@ function PostBottom(props) {
           <span>{props.likes} Liked</span>
         </a>
         <div className="comments-shared">
-          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id }}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments">
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -96,7 +95,7 @@ function PostBottom(props) {
         </a>
 
         <div className="comments-shared">
-          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments" onClick={function setReplayID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id }}>
+          <a data-toggle="collapse" href={"#" + props.status_id} className="post-add-icon inline-items" role="button" aria-expanded="false" aria-controls="Comments">
             <svg className="olymp-speech-balloon-icon"><use xlinkHref="/icons/icons.svg#olymp-speech-balloon-icon"></use></svg>
             <span>{props.comments} Comments</span>
           </a>
@@ -138,6 +137,7 @@ function Tag(props) {
 
 function CommentWithChildren(props) {
   const children = props.replies.map((child, index) => <Comment key={index} fatherid={props.fatherid} {...child}></Comment>)
+  console.log(props)
   return (
     <li className="has-children">
       <div className="post__author author vcard inline-items">
@@ -157,7 +157,7 @@ function CommentWithChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id; $('#commentforminput').val("To @ " + props.account.username + ": ")}}>
+      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.account.username + ": ")}}>
         <span href="">Reply</span>
       </a>
       <ul className="children">
@@ -187,7 +187,7 @@ function CommentWithoutChildren(props) {
         <svg xmlns="http://www.w3.org/2000/svg" className="olymp-heart-icon"><use xmlnsXlink="http://www.w3.org/1999/xlink" xlinkHref="/icons/icons.svg#olymp-heart-icon" /></svg>
         <span>{props.likes_count}</span>
       </a>
-      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.status_id; $('#commentforminput').val("To @ " + props.account.username + ": ") }}>
+      <a className="reply" data-toggle="modal" data-target="#commentform" onClick={function changeReplyID() { Stores.HomepageStore.new_status.in_reply_to_id = props.id; $('#commentforminput').val("To @ " + props.account.username + ": ") }}>
         <span href="">Reply</span>
       </a>
     </li>
@@ -215,27 +215,6 @@ function CommentList(props) {
   )
 }
 
-// function MoreComment(props) {
-//   return (
-//     <a className="more-comments">View more comments <span>+</span></a>
-//   )
-// }
-
-// function CommentForm(props) {
-//   return (
-//     <form className="comment-form inline-items">
-//       <div className="post__author author vcard inline-items">
-//         <img className="img-responsive" alt="author" src={props.avatar} />
-//         <div className="form-group with-icon-right is-empty">
-//           <textarea id={props.id} className="form-control" placeholder="" />
-//           <span className="material-input" /></div>
-//       </div>
-//       <Link to={"/homepage/" + GlobalStore.accounts.id}>
-//         <button type="button" className="btn btn-sm btn-primary" onClick={function newComment() { Stores.HomepageStore.postStatus($('#' + props.id).val(), false); $('#' + props.id).val("") }}>Comment</button>
-//       </Link>
-//     </form>
-//   )
-// }
 
 function Pollcontent(props) {
   if (props.voted) {

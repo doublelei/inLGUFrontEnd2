@@ -65,7 +65,7 @@ class _Homepage extends Component {
                         </aside>
 
                         <aside className="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
-                            {/* <Hottags hot_tag={this.props.HomepageStore.hot_tag} /> */}
+                            <Hottags hot_tag={this.props.HomepageStore.hot_tag} />
                             <ActivityFeed {...this.props.HomepageStore} />
                         </aside>
                     </div>
