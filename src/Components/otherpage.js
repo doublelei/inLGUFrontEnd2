@@ -7,18 +7,19 @@ import GlobalStore from '../store/store_global.js'
 import OtherPageStore from '../store/store_otherpage.js'
 import Stores from '../store/stores.js';
 import $ from 'jquery'
-function LoadMore(props) {
-    return (
-        <a id="load-more-button" className="btn btn-control btn-more" onClick={function LoadMoreTimelines() {
-            this.props.HomepageStore.last_time_stamp.timestamp = props.lastStatus.created_at;
-            this.props.HomepageStore.LoadMoreTimelines();
-        }}>
-            <svg className="olymp-three-dots-icon">
-                <use xlinkHref="#olymp-three-dots-icon" />
-            </svg>
-        </a>
-    )
-}
+
+// function LoadMore(props) {
+//     return (
+//         <a id="load-more-button" className="btn btn-control btn-more" onClick={function LoadMoreTimelines() {
+//             this.props.HomepageStore.last_time_stamp.timestamp = props.lastStatus.created_at;
+//             this.props.HomepageStore.LoadMoreTimelines();
+//         }}>
+//             <svg className="olymp-three-dots-icon">
+//                 <use xlinkHref="#olymp-three-dots-icon" />
+//             </svg>
+//         </a>
+//     )
+// }
 
 function AddTag(props) {
     return (
@@ -50,7 +51,6 @@ class _OtherPage extends Component {
         console.log(this.props.match.params.id)
         OtherPageStore.accounts.id = this.props.match.params.id
         OtherPageStore.getAccounts(this.props.match.params.id);
-        
         OtherPageStore.timelinesAccounts();
         console.log(OtherPageStore.status_list)
     }
@@ -69,7 +69,7 @@ class _OtherPage extends Component {
                                         <div className="author-content">
                                             <a href="#" className="h4 author-name">{OtherPageStore.accounts.username}</a>
                                         </div>
-                                        <button type="button" class="btn btn-success" style={{marginTop:"10px"}} onClick={function follow(){}}>Follow</button>
+                                        <button type="button" class="btn btn-success" style={{marginTop:"10px"}} onClick={function follow(){OtherPageStore.follow()}}>Follow</button>
                                     </div>
                                 </div>
                             </div>

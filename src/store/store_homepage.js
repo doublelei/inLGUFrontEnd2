@@ -186,7 +186,7 @@ class HomepageStore {
     }];
 
     hot_tag = []
-    activity_feed = [{ "avatar": "/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }, { "avatar": "img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }];
+    activity_feed = [{ "avatar": "/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }, { "avatar": "/img/author-page.jpg ", "name": "Marina Polson", "action": "commented", "targetname": "Jason Mark" }];
     notification = [];
 
     modal_id = ''

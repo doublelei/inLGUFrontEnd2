@@ -137,7 +137,6 @@ function Tag(props) {
 
 function CommentWithChildren(props) {
   const children = props.replies.map((child, index) => <Comment key={index} fatherid={props.fatherid} {...child}></Comment>)
-  console.log(props)
   return (
     <li className="has-children">
       <div className="post__author author vcard inline-items">

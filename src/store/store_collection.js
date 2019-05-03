@@ -182,7 +182,7 @@ class CollectionStore {
             })
         })
         .then(resp => resp.json())
-        .then(repos => {this.status_list = repos.data; console.log(repos.data)})
+        .then(repos => {this.status_list = repos.data})
         .catch(ex => {console.error(ex); toast.error("Get Collections Failed")})
     }
 };

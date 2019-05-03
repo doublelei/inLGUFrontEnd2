@@ -6,7 +6,6 @@ class FollowerStore {
     getfollower() {
         fetch(GlobalStore.basicURL + "/accounts/" + GlobalStore.accounts.id + "/followers")
         .then(res => res.json())
-        .then(res => console.log(res))
         .then(response => {
             this.accounts = response.data
         })

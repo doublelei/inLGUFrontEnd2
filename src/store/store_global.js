@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 class globalStore {
     basicURL = "https://inlgu-api.rainbowsound.me/api/v1";
     // basicURL = "test";
-    notification = [{ "username": "Min Tian", "avatar": "img/author-page.jpg", "time": "4 hours ago", "action": "commented" }, { "username": "Min Tian", "avatar": "img/author-page.jpg ", "time": "4 hours ago", "action": "commented" }];
+    notification = [{ "username": "Min Tian", "avatar": "/img/author-page.jpg", "time": "4 hours ago", "action": "commented" }, { "username": "Min Tian", "avatar": "/img/author-page.jpg ", "time": "4 hours ago", "action": "commented" }];
     token = ""
     accounts = {
         "id": "177ceaca-7a91-40fa-a01c-6d09f98c7890",
@@ -30,9 +30,7 @@ class globalStore {
                 resp => resp.json()
             )
             .then(repos => {
-                console.log(repos)
                 this.accounts = repos;
-                console.log(this.accounts)
                 toast.success("Login Succeed")
             })
             .catch(function (error) { console.log('Error:', error); toast.error("Login Failed") })
@@ -50,6 +48,8 @@ class globalStore {
             .then(function (res) { toast.success("Updated Succeed") })
             .catch(function (error) { toast.error("Updated Failed"); console.log('Error:', error) })
     }
+
+    
 }
 
 

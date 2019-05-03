@@ -93,7 +93,7 @@ class otherPageStore {
             })
         })
         .then(resp => resp.json())
-        .then(repos => {this.status_list = repos.data; console.log(repos.data)})
+        .then(repos => {this.status_list = repos.data})
         .catch(ex => {console.error(ex); toast.error("Get Timeline Failed")})
     };
 
@@ -152,7 +152,7 @@ class otherPageStore {
     undoLikeStatus(status_id) {
         this.like.status_id = status_id;
         this.like.account_id = GlobalStore.accounts.id;
-        fetch(this.basicURL + "/status/" + this.like_status + "/undo_like",
+        fetch(GlobalStore.basicURL + "/status/" + this.like_status + "/undo_like",
             {
                 method: 'POST',
                 body: JSON.stringify(this.undo_like),
@@ -167,7 +167,7 @@ class otherPageStore {
     };
 
     follow() {
-        fetch(this.basicURL + "/accounts/" + this.accounts.id + "/follow",
+        fetch(GlobalStore.basicURL + "/accounts/" + this.accounts.id + "/follow",
             {
                 method: 'POST',
                 headers: new Headers({
@@ -190,6 +190,7 @@ decorate(otherPageStore, {
     show_status_under_tag: observable,
     add_tag: observable,
     deletStatus: action,
+    follow: action,
     timelinesAccounts: action,
     getHotTags: action,
     showStatusUnderTag: action,
