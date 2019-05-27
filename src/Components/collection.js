@@ -27,14 +27,14 @@ class _MyPost extends Component {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer"></div>
-                <div className="container">
+                <div className="header-spacer" style={{height:"100px"}}></div>
+                {/* <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="container">
                     <div className="row">
                         {this.props.MyPostStore.status_list.map((status, index) => <div key={index} className="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12"><Post {...status} /></div>)}
@@ -53,14 +53,14 @@ class _Collections extends Component {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer"></div>
-                <div className="container">
+                <div className="header-spacer" style={{height:"100px"}}></div>
+                {/* <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="container">
                     <div className="row">
                         {this.props.CollectionStore.status_list.map((status, index) => <div key={index} className="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12"><Post {...status} /></div>)}

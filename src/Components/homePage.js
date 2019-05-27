@@ -6,7 +6,6 @@ import Post from './post.js';
 import Modals from './modal.js'
 import Weather from './weather.js'
 import Calendar from './calendar.js'
-import Head from './head.js'
 import Hottags from "./hottag.js"
 import ActivityFeed from "./activityfeed.js"
 import { observable, autorun, action, decorate } from "mobx";
@@ -40,14 +39,14 @@ class _Homepage extends Component {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer" style={{height:"200px"}}></div>
-                <div className="container">
+                <div className="header-spacer" style={{height:"100px"}}></div>
+                {/* <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div> {GlobalStore.test} </div>
                 <div className="container">
                     <div className="row">
@@ -58,12 +57,10 @@ class _Homepage extends Component {
                             </div>
                             {/* <LoadMore lastStatus={this.props.HomepageStore.status_list[this.props.HomepageStore.status_list.length - 1]}/> */}
                         </main>
-
                         <aside className="col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-xs-12">
-                            <Weather info={this.props.HomepageStore} />
-                            <Calendar />
+                            {/* <Weather info={this.props.HomepageStore} />
+                            <Calendar /> */}
                         </aside>
-
                         <aside className="col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-xs-12">
                             <Hottags hot_tag={this.props.HomepageStore.hot_tag} />
                             <ActivityFeed {...this.props.HomepageStore} />

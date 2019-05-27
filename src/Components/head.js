@@ -7,7 +7,7 @@ function Section(props) {
         <div className="row">
             <div className="col-lg-5 col-md-5 ">
                 <ul className="profile-menu">
-                    <li>
+                    <li> 
                         <Link to={"/homepage/" + GlobalStore.accounts.id}>Homepage</Link>
                     </li>
                     <li>

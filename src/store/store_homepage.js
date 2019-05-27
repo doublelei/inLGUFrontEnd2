@@ -152,7 +152,6 @@ class HomepageStore {
         "likes_count": '123',
         "media_attachments": "",
         "tags": [],
-        "poll": {"voted": true, "options": [{"title": "12334", "votes_count": "16%"}, {"title": "123145", "votes_count": "62%"}]},
         "liked": true,
         "pinned": ''
     }, {

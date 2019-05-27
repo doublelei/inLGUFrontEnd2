@@ -74,14 +74,14 @@ class _Follow extends Component {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer"></div>
-                <div className="container">
+                <div className="header-spacer" style={{height:"100px"}}></div>
+                {/* <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -108,14 +108,14 @@ class _Follower extends Component {
         return (
             <div>
                 <NavBar {...GlobalStore} />
-                <div className="header-spacer"></div>
-                <div className="container">
+                <div className="header-spacer" style={{height:"100px"}}></div>
+                {/* <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <Head {...GlobalStore.accounts} />
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="container">
                     <div className="row">
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -2,12 +2,12 @@ import { observable, action, decorate } from 'mobx';
 import { toast } from 'react-toastify';
 
 class globalStore {
-    basicURL = "https://inlgu-api.rainbowsound.me/api/v1";
-    // basicURL = "test";
+    basicURL = "http://10.30.49.57:5000/api/v1";
+    
     notification = [{ "username": "Min Tian", "avatar": "/img/author-page.jpg", "time": "4 hours ago", "action": "commented" }, { "username": "Min Tian", "avatar": "/img/author-page.jpg ", "time": "4 hours ago", "action": "commented" }];
     token = ""
     accounts = {
-        "id": "177ceaca-7a91-40fa-a01c-6d09f98c7890",
+        "id": "5a1ae50e-024b-4c17-ae15-531f76b84d12",
         "username": "leo",
         "display_name": "",
         "created_at": "",

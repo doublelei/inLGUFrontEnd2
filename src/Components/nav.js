@@ -1,7 +1,8 @@
 'use strict';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
-
+import GlobalStore from '../store/store_global.js'
+import $ from 'jquery'
 function Title(props) {
     return (
         <div className="page-title">
@@ -153,19 +154,136 @@ function Author(props) {
 }
 
 class NavBar extends Component {
+    
     render() {
         return (
-            <header className="header" id="site-header">
-                <Title title="inLGU" />
-                <div className="header-content-wrapper">
-                    <Search />
-                    <a href="#" className="link-find-friend">Find Friends</a>
-                    <div className="control-block">
-                        <Notifications {...this.props} />
-                        <Author {...this.props.accounts} />
+            <div>
+                <div className="fixed-sidebar fixed-sidebar-responsive" id="sidebar">
+
+                    <div className="fixed-sidebar-left sidebar--small" id="sidebar-left-responsive" onClick={function handleClick(){
+                        $("#sidebar").toggleClass('open')}}>
+                        <a href="#" className="logo js-sidebar-open" >
+                            <img src="/img/badge8.png"  alt="inLGU"/>
+                        </a>
+                    </div>
+
+                    <div className="fixed-sidebar-left sidebar--large" id="sidebar-left-1-responsive">
+                        <a href="#" className="logo" onClick={function handleClick(){
+                        $("#sidebar").toggleClass('open')}}>
+                            <img src="/img/badge8.png"  alt="inLGU"/>
+                            <h6 className="logo-title">inLGU</h6>
+                        </a>
+
+                        <div className="mCustomScrollbar ps ps--theme_default ps--active-y" data-mcs-theme="dark" data-ps-id="304ab1ff-d933-0576-e810-3acbf502a877">
+
+                            <div className="control-block">
+                                <div className="author-page author vcard inline-items">
+                                    <div className="author-thumb">
+                                        <img alt="author" src={GlobalStore.accounts.avatar} className="avatar"/>
+                                        <span className="icon-status online"></span>
+                                    </div>
+                                    <a href="02-ProfilePage.html" className="author-name fn">
+                                        <div className="author-title">
+                                            {GlobalStore.accounts.username}
+                                        </div>
+                                        <span className="author-subtitle">SPACE COWBOY</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="ui-block-title ui-block-title-small">
+                                <h6 className="title">MAIN SECTIONS</h6>
+                            </div>
+
+                            <ul className="left-menu" style={{padding:"0px"}}>
+                                <li>
+                                    <Link to={"/homepage/" + GlobalStore.accounts.id} className="link-find-friend"><span>Homepage</span></Link>
+                                </li>
+                                <li>
+                                    <Link to="/mypost" className="link-find-friend"><span>My Posts</span></Link>
+                                </li>
+                                <li>
+                                    <Link to="/collection" className="link-find-friend"><span>Collects</span></Link>
+                                </li>
+                                <li>
+                                    <Link to="/follower" className="link-find-friend"><span>Followers</span></Link>
+                                </li>
+                                <li>    
+                                    <Link to="/follow" className="link-find-friend"><span>Follows</span></Link>
+                                </li>
+                            </ul>
+
+                            <div className="ui-block-title ui-block-title-small">
+                                <h6 className="title">YOUR ACCOUNT</h6>
+                            </div>
+
+                            <ul className="left-menu" style={{padding:"0px"}}>
+                                <li>
+                                    <Link to="/profile" className="link-find-friend">
+                                        <span>Profile Settings</span>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/logout" className="link-find-friend">
+                                        <span>Log Out</span>
+                                    </Link>
+                                </li>
+                            </ul>
+
+                            {/* <div className="ui-block-title ui-block-title-small">
+                                <h6 className="title">About Olympus</h6>
+                            </div>
+
+                            <ul className="about-olympus">
+                                <li>
+                                    <a href="#">
+                                        <span>Terms and Conditions</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>FAQs</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Careers</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Contact</span>
+                                    </a>
+                                </li>
+                            </ul> */}
+
+                        </div>
                     </div>
                 </div>
-            </header>
+
+                <header className="header" id="site-header">
+                    <Title title="inLGU" />
+                    <div className="header-content-wrapper">
+                        {/* <Search /> */}
+                        <div className="row">
+                            <Link to={"/homepage/" + GlobalStore.accounts.id} className="link-find-friend">Homepage</Link>
+                            <Link to="/mypost" className="link-find-friend">MyPosts</Link>
+                            <Link to="/collection" className="link-find-friend">Collects</Link>
+                            <Link to="/follower" className="link-find-friend">Followers</Link>
+                            <Link to="/follow" className="link-find-friend">Follows</Link>
+                            <div className="control-block my-auto ">
+                                <Notifications {...this.props} />
+                                <Author {...this.props.accounts} />
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <header className="header header-responsive" id="site-header-responsive" style={{height:"70px"}}>
+                    <a className="navbar-brand mt-3 ml-3" href="#">inLGU</a>
+                </header>
+
+                
+            </div>
         )
     }
 }
