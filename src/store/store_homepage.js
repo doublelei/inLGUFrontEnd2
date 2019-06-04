@@ -238,7 +238,7 @@ class HomepageStore {
                 body: JSON.stringify(this.collect_status),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             })
             .then(function (res) { toast.success("Status Collected") })
@@ -255,7 +255,7 @@ class HomepageStore {
                 body: JSON.stringify(this.delete_status),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             })
             .then(function (res) { })
@@ -270,7 +270,7 @@ class HomepageStore {
                 method: 'GET',
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             })
             .then(resp => resp.json())
@@ -285,7 +285,7 @@ class HomepageStore {
                 body: JSON.stringify(this.attachment),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             })
     }
@@ -296,7 +296,8 @@ class HomepageStore {
             method: 'GET',
             body: JSON.stringify(this.last_time_stamp),
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': GlobalStore.token
             })
         })
             .then(function (res) { this.status_list = this.status_list.concat(res) })
@@ -307,7 +308,9 @@ class HomepageStore {
         fetch(GlobalStore.basicURL + "/hot_tags/10", {
             method: 'GET',
             headers: new Headers({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': GlobalStore.token
+
             })
         })
             .then(res => res.json())
@@ -321,13 +324,13 @@ class HomepageStore {
                 method: 'GET',
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             })
             .then(resp => resp.json())
             .then(repos => { this.status_list = repos.data })
             .catch(ex => { console.error(ex); toast.error("Get Timeline by Tag Failed") })
-    }
+    };
 
 
     // tag_id will be set when the + button is clicked
@@ -339,7 +342,7 @@ class HomepageStore {
                 body: JSON.stringify(this.add_tag),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             })
             .then(function (res) { toast.success("Add Tag Succeed") })
@@ -364,7 +367,7 @@ class HomepageStore {
                 body: JSON.stringify(this.new_status),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             }).then(res => res.json())
             .then(response => { console.log('Success:', response); toast.success("Posted") })
@@ -385,7 +388,7 @@ class HomepageStore {
                 body: JSON.stringify(this.like),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             })
             .then(response => { console.log('Success:', response); toast.success("Liked") })
@@ -402,7 +405,7 @@ class HomepageStore {
                 body: JSON.stringify(this.undo_like),
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + window.btoa(GlobalStore.accounts.id + ":" + "unused")
+                    'Authorization': GlobalStore.token
                 })
             }
         )
@@ -415,6 +418,7 @@ class HomepageStore {
 }
 
 decorate(HomepageStore, {
+
     status_list: observable,
     hot_tag: observable,
     activity_feed: observable,
@@ -426,7 +430,6 @@ decorate(HomepageStore, {
     show_status_under_tag: observable,
     add_tag: observable,
 
-
     collectStatus: action,
     deletStatus: action,
     timelinesPublic: action,
@@ -436,6 +439,6 @@ decorate(HomepageStore, {
     postStatus: action,
     likeStatus: action,
     undoLikeStatus: action
-})
+});
 
 export default HomepageStore;

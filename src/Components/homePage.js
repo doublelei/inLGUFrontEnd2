@@ -27,12 +27,11 @@ function LoadMore(props) {
 }
 
 class _Homepage extends Component {
-    componentDidMount() {
+    componentWillMount() {
         GlobalStore.accounts.id = this.props.match.params.id;
         console.log(GlobalStore.accounts)
         GlobalStore.getCurrentUser();
         this.props.HomepageStore.timelinesPublic();
-        console.log(this.props.HomepageStore.status_list)
         this.props.HomepageStore.getHotTags();
     }
     render() {

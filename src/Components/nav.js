@@ -101,7 +101,7 @@ function Author(props) {
                                 </Link>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="#" onClick={function logout(){GlobalStore.logout()}}>
                                     <svg className="olymp-logout-icon"><use xlinkHref="/icons/icons.svg#olymp-logout-icon"></use></svg>
                                     <span>Log Out</span>
                                 </a>
@@ -224,9 +224,9 @@ class NavBar extends Component {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/logout" className="link-find-friend">
+                                    <a onClick={function logout(){GlobalStore.logout()}} className="link-find-friend">
                                         <span>Log Out</span>
-                                    </Link>
+                                    </a>
                                 </li>
                             </ul>
 

@@ -51,18 +51,64 @@ function NewPostButton(props) {
     )
 }
 
+function FloatButton(){
+    $(function(){
+    var floatButton=$("#floatButton");
+    var win=$(window);
+    var sc=$(document);
+    win.scroll(function(){
+            if(sc.scrollTop()>=100){
+                floatButton.fadeIn(); 
+            }else{
+                floatButton.fadeOut();
+            }
+        })  
+    });
+
+    return(
+        <button id="floatButton" type="button" className="btn btn-primary" data-toggle="modal" data-target="#newpostModal" style={{display: "none", position: "fixed", zIndex:"5", width: "50px", height: "50px", borderRadius: "50%", right: "10%", bottom: "5%"}}>+</button> 
+        )
+}
+
 class NewPost extends Component {
 
     render() {
         return (
-            <div className="ui-block">
-                <div className="news-feed-form">
-                    <div className="" aira-expanded="true">
-                        <form>
-                            <NewPostAuthorThumb {...GlobalStore.accounts} />
-                            <NewPostInput {...this.props.HomepageStore} />
-                            <NewPostButton {...this.props.HomepageStore} />
-                        </form>
+            <div>
+                <div className="ui-block">
+                    <div className="news-feed-form">
+                        <div className="" aira-expanded="true">
+                            <form>
+                                <NewPostAuthorThumb {...GlobalStore.accounts} />
+                                <NewPostInput {...this.props.HomepageStore} />
+                                <NewPostButton {...this.props.HomepageStore} />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <FloatButton />
+
+                <div class="modal fade" id="newpostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New Post</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div className="news-feed-form">
+                                <div className="" aira-expanded="true">
+                                    <form>
+                                        <NewPostAuthorThumb {...GlobalStore.accounts} />
+                                        <NewPostInput {...this.props.HomepageStore} />
+                                        <NewPostButton {...this.props.HomepageStore} />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
